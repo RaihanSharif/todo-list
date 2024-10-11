@@ -18,3 +18,5 @@ class ProjectList {
     // TODO: compine projects?
     // TODO: add static function to move a task between projects
 }
+
+export default ProjectList;
