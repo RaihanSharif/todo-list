@@ -8,7 +8,7 @@ class Project {
         this.description = description;
     }
 
-    get checklist() {
+    get taskList() {
         return this.#taskList;
     }
 
