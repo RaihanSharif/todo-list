@@ -17,16 +17,16 @@
             <form id="new-task-form" method="dialog">
                 <ul>
                     <li>
-                        <label for="task-title">Task Title</label>
-                        <input type="text" id="task-title" name="task-title" max-lenth="50" required>
+                        <label for="title">Task Title</label>
+                        <input type="text" id="title" name="title" max-lenth="50" required>
                     </li>
                     <li>
                         <label for="project">Project</label>
                         <select id="project" name="project" max-lenth="50" required></select>
                     </li>
                     <li>
-                        <label for="date">Due date</label>
-                        <input type="date" id="date", name="date" required>
+                        <label for="dueDate">Due date</label>
+                        <input type="date" id="dueDate", name="dueDate" required>
                     </li>
                     <li>
                         <label for="description">Description</label>
@@ -41,8 +41,8 @@
                         </select>
                     </li>
                     <div id="modal-btn-container">
-                        <button type="submit">Submit</button>
-                        <button autofocus type="reset" id="close-modal-btn">Cancel</button>
+                        <button id="submit" type="submit" value="default">Submit</button>
+                        <button autofocus type="reset" id="close-modal-btn" value="cancel" formmethod="dialog">Cancel</button>
                     </div>
                 </ul>
             </form>

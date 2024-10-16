@@ -1,6 +1,7 @@
 // TODO: use font-awesome icons
 
 import Project from "./project";
+import Task from "./task";
 
 
 
@@ -75,7 +76,6 @@ function renderProjectTasks(project) {
     taskDisplay.appendChild(projName);
 
     project.taskList.forEach(task => {
-        console.log("woop woop!");
         taskDisplay.appendChild(createTaskCard(task));
     });
 }
@@ -113,7 +113,6 @@ function renderProjects(projectList, containerElem) {
     projectsUl.setAttribute('id', "projects-ul");
 
     projectList.projects.forEach(element => {
-        console.log(`current project: ${element.title}`);
         const card = createProjectCard(element);
         projectsUl.appendChild(card);
     });
@@ -148,7 +147,7 @@ function renderNewProject(projectList, containerElem) {
 }
 
 // TODO: is there a better way to wrap all this up?
-function addNewTask(projects) {
+function renderNewTask(projectList) {
     const newTaskBtn = document.getElementById('new-task-btn');
     const modal = document.getElementById("new-task-modal");
     const taskForm = modal.querySelector("#new-task-form");
@@ -157,27 +156,32 @@ function addNewTask(projects) {
     const projectSelect = taskForm.querySelector('#project');
     const cancelBtn = modal.querySelector("#close-modal-btn");
 
+    cancelBtn.addEventListener("click", () => {
+        modal.close("cancelled");
+    });
+    
+
     newTaskBtn.addEventListener('click', () => {
         projectSelect.innerHTML = '';
-        projects.projects.forEach(proj => {
+        projectList.projects.forEach(proj => {
             const opt = document.createElement("option");
             opt.value = proj.title;
             opt.textContent = proj.title;
             projectSelect.appendChild(opt);
         });
-    
-    
-        cancelBtn.addEventListener("click", () => {
-            modal.close("cancelled");
-        });
         modal.showModal();
     });
 
-    // create a new Task object using form data
-    
+    submitBtn.addEventListener('click', () => {
+        const data = Object.fromEntries(new FormData(taskForm));
+        const newTask = new Task(data.title, data.description, data.dueDate, data.priority);
+        
+        const proj = projectList.getProject('title', data.project);
+        proj.addTask(newTask);
+        renderProjectTasks(proj);
+        modal.close();
+    });
 
-    // add task to correct project, if not then to Other
-    // render the relevant project and its tasks
 }
 
-export {renderProjects, renderNewProject, addNewTask};
+export {renderProjects, renderNewProject, renderNewTask};

@@ -1,5 +1,6 @@
 import Task from "./task.js";
 
+
 class Project {
     #taskList= [];
 
@@ -11,18 +12,17 @@ class Project {
     }
 
     get taskList() {
-        console.log(this.#taskList);
         return this.#taskList;
     }
 
-    addTask(todoItem) {
-        this.#taskList.push(todoItem); //TODO: check for duplicates
+    addTask(task) {
+        this.#taskList.push(task); //TODO: check for duplicates
     }
 
-    removeTask(todoItem) {
+    removeTask(task) {
         // the include has to be the exact same object, not another object with same attributes
-        if (this.#taskList.includes(todoItem)) {
-            const index = this.#taskList.indexOf(todoItem);
+        if (this.#taskList.includes(task)) {
+            const index = this.#taskList.indexOf(task);
             this.#taskList.splice(index, 1);
         }
     }

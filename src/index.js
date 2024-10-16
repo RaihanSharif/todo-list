@@ -3,7 +3,7 @@ import "./styles.css";
 import Task from "./task.js";
 import Project from "./project.js"
 import ProjectList from "./projectList.js";
-import { renderNewProject, renderProjects, addNewTask } from "./render.js";
+import { renderNewProject, renderProjects, renderNewTask } from "./render.js";
 
 
 //default importing an image example. can be used as src of img html element
@@ -30,6 +30,4 @@ renderProjects(projects, projListContainer);
 
 renderNewProject(projects, projListContainer);
 
-addNewTask(projects);
-
-
+renderNewTask(projects);
