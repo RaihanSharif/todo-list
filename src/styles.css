@@ -99,6 +99,17 @@ ul {
   gap: 1rem;
 }
 
+#new-task-modal ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+#new-task-modal ul li {
+  display: flex;
+  flex-direction: column;
+  
+}
+
 header {
   background-color:cornsilk;
 }

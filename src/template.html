@@ -12,7 +12,7 @@
         </nav>
     </header>
     <div id="main">
-        <dialog id="new-task-modal" close>
+        <dialog id="new-task-modal">
             <h3>Create a new todo task</h3>
             <form id="new-task-form" method="dialog">
                 <ul>
@@ -22,7 +22,7 @@
                     </li>
                     <li>
                         <label for="project">Project</label>
-                        <select id="project" name="project" max-lenth="50" required>
+                        <select id="project" name="project" max-lenth="50" required></select>
                     </li>
                     <li>
                         <label for="date">Due date</label>
@@ -30,7 +30,7 @@
                     </li>
                     <li>
                         <label for="description">Description</label>
-                        <textare id="description" name="description" max-length="400"></textare>
+                        <textarea id="description" name="description" max-length="400"></textarea>
                     </li>
                     <li>
                         <label for="priority">Priority</label>
