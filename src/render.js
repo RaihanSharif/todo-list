@@ -147,25 +147,37 @@ function renderNewProject(projectList, containerElem) {
     
 }
 
-const newTaskBtn = document.getElementById('new-task-btn');
-function addNewTask() {
+// TODO: is there a better way to wrap all this up?
+function addNewTask(projects) {
+    const newTaskBtn = document.getElementById('new-task-btn');
     const modal = document.getElementById("new-task-modal");
-    const form = modal.querySelector("#new-task-form");
-
+    const taskForm = modal.querySelector("#new-task-form");
     const submitBtn = modal.querySelector("#submit");
+
+    const projectSelect = taskForm.querySelector('#project');
     const cancelBtn = modal.querySelector("#close-modal-btn");
 
-    cancelBtn.addEventListener("click", () => {
-        modal.close("cancelled");
+    newTaskBtn.addEventListener('click', () => {
+        projectSelect.innerHTML = '';
+        projects.projects.forEach(proj => {
+            const opt = document.createElement("option");
+            opt.value = proj.title;
+            opt.textContent = proj.title;
+            projectSelect.appendChild(opt);
+        });
+    
+    
+        cancelBtn.addEventListener("click", () => {
+            modal.close("cancelled");
+        });
+        modal.showModal();
     });
 
-    modal.showModal();
-
-    // show the new task form modal
     // create a new Task object using form data
+    
+
     // add task to correct project, if not then to Other
     // render the relevant project and its tasks
 }
-newTaskBtn.addEventListener("click", addNewTask);
 
-export {renderProjects, renderNewProject};
+export {renderProjects, renderNewProject, addNewTask};

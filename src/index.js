@@ -3,7 +3,7 @@ import "./styles.css";
 import Task from "./task.js";
 import Project from "./project.js"
 import ProjectList from "./projectList.js";
-import { renderNewProject, renderProjects } from "./render.js";
+import { renderNewProject, renderProjects, addNewTask } from "./render.js";
 
 
 //default importing an image example. can be used as src of img html element
@@ -29,5 +29,7 @@ const projListContainer = document.getElementById("projects-inner");
 renderProjects(projects, projListContainer);
 
 renderNewProject(projects, projListContainer);
+
+addNewTask(projects);
 
 
