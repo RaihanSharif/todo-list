@@ -90,14 +90,14 @@ ul {
   /* backdrop-filter: brightness(80%); */
 }
 
-/* #new-task-modal {
+#new-task-modal[open] {
   display: flex;
   flex-direction: column;
   padding: 2rem;
   align-self: center;
   justify-self: center;
   gap: 1rem;
-} */
+}
 
 header {
   background-color:cornsilk;

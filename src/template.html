@@ -12,13 +12,13 @@
         </nav>
     </header>
     <div id="main">
-        <dialog id="new-task-modal">
+        <dialog id="new-task-modal" close>
             <h3>Create a new todo task</h3>
             <form id="new-task-form" method="dialog">
                 <ul>
                     <li>
                         <label for="task-title">Task Title</label>
-                        <input autofocus type="text" id="task-title" name="task-title" max-lenth="50" required>
+                        <input type="text" id="task-title" name="task-title" max-lenth="50" required>
                     </li>
                     <li>
                         <label for="project">Project</label>
@@ -42,7 +42,7 @@
                     </li>
                     <div id="modal-btn-container">
                         <button type="submit">Submit</button>
-                        <button type="reset" id="close-modal-btn">Cancel</button>
+                        <button autofocus type="reset" id="close-modal-btn">Cancel</button>
                     </div>
                 </ul>
             </form>
