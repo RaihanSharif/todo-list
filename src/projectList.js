@@ -3,7 +3,6 @@ import Project from "./project.js";
 // a list of projects.
 class ProjectList {
     projects = [];
-
     // returns the matching object
     getProject(attribute, value) {
         return this.projects.find(proj => proj[attribute] === value);
@@ -26,8 +25,10 @@ class ProjectList {
 
     removeProject(project) {
         if (this.projects.includes(project)) {
+            console.log(`project exists, title: ${project.title}`);
             const index = this.projects.indexOf(project);
             this.projects.splice(index, 1);
+            console.log(`projects left after removal: ${this.projects}`);
             return true;
         } else {
             console.log("item does not exist");

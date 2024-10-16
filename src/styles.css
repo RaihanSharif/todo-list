@@ -56,6 +56,15 @@ ul {
   font-size: 1rem;
 }
 
+.project-card {
+  padding: 0.5rem;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
 #content {
   background-color: cadetblue;
 }
