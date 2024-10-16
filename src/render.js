@@ -2,21 +2,95 @@
 
 import Project from "./project";
 
+
+
+function createTaskCard(task) {
+    const card = document.createElement("div");
+    card.classList.add('task-card');
+    card.setAttribute('data-title', task.title);
+    card.setAttribute('data-isChecked', false);
+
+    const taskTitle = document.createElement('h3');
+    taskTitle.textContent = task.title;
+    taskTitle.classList.add('task-title');
+
+    const taskCheckbox = document.createElement("input");
+    taskCheckbox.setAttribute('type', 'checkbox');
+    taskCheckbox.classList.add('task-checkbox');
+    taskCheckbox.setAttribute('data-title', task.title);
+
+    // if checkbox is checked, the task is marked as completed
+    // the card gets a isChecked = true, data
+    taskCheckbox.addEventListener('change', () => {
+        if (taskCheckbox.checked) {
+            task.isComplete = true;
+            card.dataset.isChecked = true;
+        } else {
+            task.isComplete = false;
+            card.dataset.isChecked = false;
+        }
+    });
+
+    const taskDesc = document.createElement('p');
+    taskDesc.textContent = task.description;
+    taskDesc.classList.add("task-desc");
+
+    const taskDate = document.createElement('span');  //TODO: change to date/time tag later
+    taskDate.textContent = `Due: ${task.dueDate}`;
+    taskDate.classList.add('task-due-date');
+
+    const taskPriority = document.createElement('div');
+    taskPriority.classList.add('task-priority'); // TODO: color of div will change based on value
+    taskPriority.setAttribute('data-priority', task.priority);
+    taskPriority.textContent = task.priority; //TODO: this may be a number that needs to be turned into text {low, medium, high}
+
+    const taskEdit = document.createElement('span'); // TODO: change to div?
+    taskEdit.classList.add("task-edit-btn", "fa-solid", "fa-edit");
+    // TODO: add edit button event listener.
+
+    const taskDel = document.createElement('span');
+    taskDel.classList.add('task-del', 'fa-solid', 'fa-trash');
+    // TODO: add event listener
+
+    card.appendChild(taskCheckbox);
+    card.appendChild(taskTitle);
+    card.appendChild(taskDesc);
+    card.appendChild(taskDate);
+    card.appendChild(taskPriority);
+    card.appendChild(taskEdit);
+    card.appendChild(taskDel);
+
+    return card;
+}
+
+function renderProjectTasks(project) {
+    const taskDisplay = document.getElementById("content");
+    taskDisplay.innerHTML = '';
+    const projName = document.createElement('h2');
+    projName.id = 'tasks-header';
+    projName.textContent = project.title;
+
+    taskDisplay.appendChild(projName);
+
+    project.taskList.forEach(task => {
+        console.log("woop woop!");
+        taskDisplay.appendChild(createTaskCard(task));
+    });
+}
+
+
+
 // create a project card that will be used to render projects list
+
 function createProjectCard(project) {
     const li = document.createElement("li");
     li.classList.add("project-card");
     li.setAttribute('data-title', project.title); //TODO: project[title] ???
 
-    // const icon = document.createElement("span");
-    // icon.classList.add("fa-solid", "fa-folder");
-    // li.appendChild(icon);
-
     const projectName = document.createElement("p");
     projectName.textContent = project.title;
     projectName.addEventListener('click', () => {
-        // renderTasks(project);
-        // TODO: function to render all tasks of a given projects
+        renderProjectTasks(project);
     });
     li.appendChild(projectName);
     
@@ -54,9 +128,9 @@ function renderProjects(projectList, containerElem) {
     return projectsUl;
 }
 
+// TODO: error when creating empty project. Need to validate input
 function renderNewProject(projectList, containerElem) {
     const newProjBtn = document.getElementById("new-project-btn");
-
     newProjBtn.addEventListener('click', () => {
         const title = prompt('Project title:');
         const desc = prompt('Project description:');

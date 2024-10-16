@@ -1,14 +1,17 @@
-import TodoTask from "./task.js";
+import Task from "./task.js";
 
 class Project {
     #taskList= [];
+
     // TODO: Add a static method to move an item from one project to another
+    // TODO: static field to track number of tasks in project
     constructor(title, description) {
         this.title = title;
         this.description = description;
     }
 
     get taskList() {
+        console.log(this.#taskList);
         return this.#taskList;
     }
 

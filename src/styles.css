@@ -66,6 +66,12 @@ ul {
   justify-content: space-between;
 }
 
+.task-card {
+  display: flex;
+  padding: 1rem;
+  gap: 2rem;
+}
+
 #content {
   background-color: cadetblue;
 }

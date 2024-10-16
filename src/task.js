@@ -1,4 +1,4 @@
-class TodoTask {
+class Task {
     // isComplete is set to false by default
     constructor(title, description, dueDate, priority, isComplete=false) {
         this.title = title;
@@ -17,4 +17,4 @@ class TodoTask {
     }
 };
 
-export default TodoTask;
+export default Task;

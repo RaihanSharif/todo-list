@@ -3,6 +3,8 @@ import Project from "./project.js";
 // a list of projects.
 class ProjectList {
     projects = [];
+
+    // TODO: static field to track number of projects
     // returns the matching object
     getProject(attribute, value) {
         return this.projects.find(proj => proj[attribute] === value);
