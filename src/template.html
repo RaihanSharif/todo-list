@@ -13,9 +13,19 @@
 
     <div id="main">
         <div id="sidebar">
-            <h2>Projects</h2>
-            <button id="new-proj-btn">New Project</button>
-            <ul id="projects-list"></ul>
+            <ul class="menu" id="quick-view">
+                <li><button>All Tasks</button></li>
+                <li><button>Due Today</button></li>
+                <li><button>Due This Week</button></li>
+                <li><button>Due This Month</button></li>
+                <li><button>Overdue</button></li>
+            </ul>
+
+            <div>
+                <h2>Projects</h2>
+                <ul class="menu" id="projects-ul">
+                </ul>
+            </div>
         </div>
         <div id="content">
             <h2>Tasks</h2>

@@ -26,6 +26,11 @@ body {
   height: 100vh;
   grid-template-rows: 70px 1fr 50px;
 }
+
+ul {
+  list-style: none;
+}
+
 #main {
   display: grid;
   grid-template-columns: 1fr 4fr;
@@ -34,6 +39,21 @@ body {
 
 #sidebar {
   background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 3rem;
+  padding: 1rem;
+}
+
+.menu button {
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
 }
 
 #content {
