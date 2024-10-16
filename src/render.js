@@ -21,6 +21,7 @@ function createTaskCard(task) {
 
     // if checkbox is checked, the task is marked as completed
     // the card gets a isChecked = true, data
+    // tested - works 
     taskCheckbox.addEventListener('change', () => {
         if (taskCheckbox.checked) {
             task.isComplete = true;
@@ -28,6 +29,7 @@ function createTaskCard(task) {
         } else {
             task.isComplete = false;
             card.dataset.isChecked = false;
+
         }
     });
 
@@ -144,4 +146,26 @@ function renderNewProject(projectList, containerElem) {
     });
     
 }
+
+const newTaskBtn = document.getElementById('new-task-btn');
+function addNewTask() {
+    const modal = document.getElementById("new-task-modal");
+    const form = modal.querySelector("#new-task-form");
+
+    const submitBtn = modal.querySelector("#submit");
+    const cancelBtn = modal.querySelector("#close-modal-btn");
+
+    cancelBtn.addEventListener("click", () => {
+        modal.close("cancelled");
+    });
+
+    modal.showModal();
+
+    // show the new task form modal
+    // create a new Task object using form data
+    // add task to correct project, if not then to Other
+    // render the relevant project and its tasks
+}
+newTaskBtn.addEventListener("click", addNewTask);
+
 export {renderProjects, renderNewProject};

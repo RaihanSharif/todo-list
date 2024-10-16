@@ -11,16 +11,19 @@ import { renderNewProject, renderProjects } from "./render.js";
 
 const projects = new ProjectList();
 const other = new Project("Other", "Tasks that are not assigned to a project");
-
+projects.addProject(other);
 
 
 
 
 const homework = new Project("Homework", "testing bro");
-projects.addProject(homework);
 const task1 = new Task('odin project', 'complete faster', 'asdf', 'high');
 homework.addTask(task1);
-projects.addProject(other);
+homework.addTask(new Task("C++", "learn about asynchonous execution", "asef", 'high'));
+projects.addProject(homework);
+
+
+
 
 const projListContainer = document.getElementById("projects-inner");
 renderProjects(projects, projListContainer);

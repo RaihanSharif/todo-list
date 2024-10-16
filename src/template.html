@@ -11,9 +11,45 @@
         <nav>
         </nav>
     </header>
-
     <div id="main">
+        <dialog id="new-task-modal">
+            <h3>Create a new todo task</h3>
+            <form id="new-task-form" method="dialog">
+                <ul>
+                    <li>
+                        <label for="task-title">Task Title</label>
+                        <input autofocus type="text" id="task-title" name="task-title" max-lenth="50" required>
+                    </li>
+                    <li>
+                        <label for="project">Project</label>
+                        <select id="project" name="project" max-lenth="50" required>
+                    </li>
+                    <li>
+                        <label for="date">Due date</label>
+                        <input type="date" id="date", name="date" required>
+                    </li>
+                    <li>
+                        <label for="description">Description</label>
+                        <textare id="description" name="description" max-length="400"></textare>
+                    </li>
+                    <li>
+                        <label for="priority">Priority</label>
+                        <select id="priority" name="priority">
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </li>
+                    <div id="modal-btn-container">
+                        <button type="submit">Submit</button>
+                        <button type="reset" id="close-modal-btn">Cancel</button>
+                    </div>
+                </ul>
+            </form>
+        </dialog>
         <div id="sidebar">
+            <div id="new-task-btn">New Task <span class="fa-solid fa-plus"></span></div>
+            <!-- <button id="new-task-btn">New Task  <span class="fa-solid fa-plus"></span></button> -->
             <ul class="menu" id="quick-view">
                 <li><button>All Tasks</button></li>
                 <li><button>Due Today</button></li>
@@ -31,7 +67,7 @@
             </div>
         </div>
         <div id="content">
-            
+
         </div>
     </div>
     <footer>
