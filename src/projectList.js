@@ -14,6 +14,8 @@ class ProjectList {
             console.log("not a project");
             return false;
         }
+
+        // TODO: might need to cange this to check for title instead
         if(this.projects.includes(project)) {
             console.log("project already exists");
             return false;

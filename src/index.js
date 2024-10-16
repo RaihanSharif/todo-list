@@ -2,7 +2,7 @@
 import "./styles.css";
 import Project from "./project.js"
 import ProjectList from "./projectList.js";
-import { renderProjects } from "./render.js";
+import { renderNewProject, renderProjects } from "./render.js";
 
 //default importing an image example. can be used as src of img html element
 // import odingImage from "./oding.png";
@@ -17,5 +17,6 @@ projects.addProject(homework);
 const projListContainer = document.getElementById("projects-inner");
 renderProjects(projects, projListContainer);
 
+renderNewProject(projects, projListContainer);
 
 

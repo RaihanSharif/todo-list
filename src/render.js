@@ -1,14 +1,16 @@
 // TODO: use font-awesome icons
 
+import Project from "./project";
+
 // create a project card that will be used to render projects list
 function createProjectCard(project) {
     const li = document.createElement("li");
     li.classList.add("project-card");
     li.setAttribute('data-title', project.title); //TODO: project[title] ???
 
-    const icon = document.createElement("span");
-    icon.classList.add("fa-solid", "fa-folder");
-    li.appendChild(icon);
+    // const icon = document.createElement("span");
+    // icon.classList.add("fa-solid", "fa-folder");
+    // li.appendChild(icon);
 
     const projectName = document.createElement("p");
     projectName.textContent = project.title;
@@ -52,4 +54,20 @@ function renderProjects(projectList, containerElem) {
     return projectsUl;
 }
 
-export {renderProjects};
+function renderNewProject(projectList, containerElem) {
+    const newProjBtn = document.getElementById("new-project-btn");
+
+    newProjBtn.addEventListener('click', () => {
+        const title = prompt('Project title:');
+        const desc = prompt('Project description:');
+        const newProj = new Project(title, desc);
+        const added = projectList.addProject(newProj);
+        if (added) {
+            renderProjects(projectList, containerElem);
+        } else {
+            alert("project already exists");
+        }
+    });
+    
+}
+export {renderProjects, renderNewProject};
