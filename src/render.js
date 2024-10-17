@@ -53,7 +53,7 @@ function createTaskCard(task) {
 
     const taskDel = document.createElement('span');
     taskDel.classList.add('task-del', 'fa-solid', 'fa-trash');
-    // TODO: add event listener
+    taskDel.setAttribute('data-title', task.title);
 
     card.appendChild(taskCheckbox);
     card.appendChild(taskTitle);
@@ -78,11 +78,22 @@ function renderProjectTasks(project) {
     project.taskList.forEach(task => {
         taskDisplay.appendChild(createTaskCard(task));
     });
+
+    // TODO: can probably move this out of here
+    // removes tasks when del button pressed
+    taskDisplay.addEventListener('click', (ev) => {
+        const target = ev.target;
+        if (target.classList.contains('task-del')) {
+            const task = project.getTask(target.dataset.title);
+            project.removeTask(task);
+            renderProjectTasks(project);
+        } else {
+            console.log('not detected class');
+        }
+    });
 }
 
 
-
-// create a project card that will be used to render projects list
 
 function createProjectCard(project) {
     const li = document.createElement("li");
@@ -106,7 +117,6 @@ function createProjectCard(project) {
 
 // take a ProjectList object and container element and returns a UL
 function renderProjects(projectList, containerElem) {
-
     containerElem.innerHTML = "";
     const projectsUl = document.createElement("ul");
     projectsUl.classList.add("menu");
@@ -117,6 +127,7 @@ function renderProjects(projectList, containerElem) {
         projectsUl.appendChild(card);
     });
 
+    // for deleting projects
     projectsUl.addEventListener('click', (e) => {
         const target = e.target;
         if (target.classList.contains("del-proj")){

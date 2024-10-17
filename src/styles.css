@@ -68,13 +68,18 @@ ul {
 
 .task-card {
   display: flex;
-  padding: 1rem;
+  /* padding: 1rem; */
   gap: 3rem;
   /* border: 2px solid black; */
   border-radius: 5px;
   box-shadow: 2px 2px 2px 2px black;
   backdrop-filter: brightness(150%);
 
+}
+
+.task-card * {
+  padding: 1rem;
+  background-color: aliceblue;
 }
 
 #content {
@@ -111,6 +116,7 @@ ul {
   flex-direction: column;
 
 }
+
 
 header {
   background-color:cornsilk;
