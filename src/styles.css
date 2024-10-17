@@ -97,7 +97,7 @@ ul {
   /* backdrop-filter: brightness(80%); */
 }
 
-#new-task-modal[open] {
+dialog[open] {
   display: flex;
   flex-direction: column;
   padding: 2rem;
@@ -106,12 +106,12 @@ ul {
   gap: 1rem;
 }
 
-#new-task-modal ul {
+dialog ul {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-#new-task-modal ul li {
+dialog ul li {
   display: flex;
   flex-direction: column;
 

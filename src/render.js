@@ -1,9 +1,12 @@
 // TODO: use font-awesome icons
 
+import { differenceInBusinessDays } from "date-fns";
 import Project from "./project";
 import Task from "./task";
 
 
+
+//TODO: create a separate function for population project select options in the forms.
 
 function createTaskCard(task) {
     const card = document.createElement("div");
@@ -49,6 +52,7 @@ function createTaskCard(task) {
 
     const taskEdit = document.createElement('span'); // TODO: change to div?
     taskEdit.classList.add("task-edit-btn", "fa-solid", "fa-edit");
+    taskEdit.setAttribute('data-title', task.title);
     // TODO: add edit button event listener.
 
     const taskDel = document.createElement('span');
@@ -83,16 +87,31 @@ function renderProjectTasks(project) {
     // removes tasks when del button pressed
     taskDisplay.addEventListener('click', (ev) => {
         const target = ev.target;
+        const task = project.getTask(target.dataset.title);
         if (target.classList.contains('task-del')) {
-            const task = project.getTask(target.dataset.title);
             project.removeTask(task);
             renderProjectTasks(project);
-        } else {
-            console.log('not detected class');
+
+        } else if (target.classList.contains('task-edit-btn')) {
+            // edit
+            const modal = document.getElementById("edit-task-modal");
+            console.log(modal);
+            modal.showModal();
+            populateTaskEditForm(task);
         }
     });
 }
 
+function populateTaskEditForm(task) {
+
+    const editForm = document.getElementById('edit-task-form');
+
+    const title = editForm.elements['title'];
+    title.value = task.title;
+    console.log(title);
+
+
+}
 
 
 function createProjectCard(project) {
