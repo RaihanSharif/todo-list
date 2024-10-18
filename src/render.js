@@ -191,7 +191,15 @@ function renderProjects(projectList, containerElem) {
 function renderNewProject(projectList, containerElem) {
     const newProjBtn = document.getElementById("new-project-btn");
     newProjBtn.addEventListener('click', () => {
-        const title = prompt('Project title:');
+        let title = prompt('Project title:');
+        while (title === '') {
+            title = prompt('please enter a title to continue, or press cancel');
+        }
+
+        if (title === null) {
+            return 0;
+        }
+        
         const desc = prompt('Project description:');
         const newProj = new Project(title, desc);
         const added = projectList.addProject(newProj);
