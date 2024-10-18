@@ -93,16 +93,22 @@ function renderProjectTasks(project) {
             renderProjectTasks(project);
 
         } else if (target.classList.contains('task-edit-btn')) {
-            const modal = document.getElementById("edit-task-modal");
+            const editModal = document.getElementById("edit-task-modal");
             const editForm = document.getElementById('edit-task-form');
-            console.log(editForm);
-            modal.showModal();
+            const cancelBtn = editForm.querySelector("#cancel-edit");
+            editModal.showModal();
             populateTaskEditForm(task, editForm);
 
             editForm.addEventListener('submit', (ev) => {
                 console.log(ev);
                 console.log("submit event triggered");
-                editTaskSubmitHandler(modal, task);
+                editTaskSubmitHandler(editModal, task);
+                renderProjectTasks(project);
+            });
+
+            cancelBtn.addEventListener('click', (ev) => {
+                ev.preventDefault();
+                editModal.close();
                 renderProjectTasks(project);
             });
         }
