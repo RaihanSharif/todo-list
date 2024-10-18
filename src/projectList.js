@@ -23,6 +23,11 @@ class ProjectList {
             return false;
         }
 
+        if (this.getProject('title', project.title)) {
+            console.log('project already exists');
+            return false;
+        }
+        
         this.projects.push(project);
         return true;
     }
