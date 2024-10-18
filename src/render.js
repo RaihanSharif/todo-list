@@ -253,4 +253,4 @@ function renderNewTask(projectList) {
 
 }
 
-export {renderProjects, renderNewProject, renderNewTask};
+export {renderProjects, renderNewProject, renderNewTask, renderProjectTasks};
