@@ -85,7 +85,6 @@ function renderProjectTasks(project) {
     });
 
     // TODO: can probably move this out of here
-    // removes tasks when del button pressed
     taskDisplay.addEventListener('click', (ev) => {
         const target = ev.target;
         const task = project.getTask(target.dataset.title);
@@ -94,16 +93,35 @@ function renderProjectTasks(project) {
             renderProjectTasks(project);
 
         } else if (target.classList.contains('task-edit-btn')) {
-            // edit
             const modal = document.getElementById("edit-task-modal");
+            const editForm = document.getElementById('edit-task-form');
+            console.log(editForm);
             modal.showModal();
-            populateTaskEditForm(task);
+            populateTaskEditForm(task, editForm);
+
+            editForm.addEventListener('submit', (ev) => {
+                console.log(ev);
+                console.log("submit event triggered");
+                editTaskSubmitHandler(modal, task);
+                renderProjectTasks(project);
+            });
         }
     });
 }
 
 
-// TODO: parameterize it later
+function editTaskSubmitHandler(modalIn, task) {
+    const taskForm = modalIn.querySelector("#edit-task-form");
+    // capture form data
+    const data = Object.fromEntries(new FormData(taskForm));
+    // update task object
+    task.title = data.title;
+    task.description = data.description;
+    task.dueDate = data.dueDate;
+    task.priority = data.priority;
+}
+
+// TODO: parameterize it later. Not used right now
 function projectSelectOptions(formIn) {
     const projectSelect = formIn.querySelector('#project');
     projectSelect.innerHTML = '';
@@ -116,19 +134,21 @@ function projectSelectOptions(formIn) {
 }
 
 
-function populateTaskEditForm(task) {
-    const editForm = document.getElementById('edit-task-form');
+function populateTaskEditForm(task, editForm) {
+    
     const title = editForm.elements['title'];
     title.value = task.title;
 
     const description = editForm.elements['description'];
     description.value = task.description;
     
-    // sets project options
+    // TODO: populating the project section problems
+    // changing the project means moving the task from the current 
+    // project to another project.
+
     // projectSelectOptions(editForm);
 
     const date = editForm.elements['dueDate'];
-    console.log(date);
     date.value = task.dueDate;
 
 
@@ -141,10 +161,6 @@ function populateTaskEditForm(task) {
             priority.selectedIndex = i;
         }
     }
-
-    // TODO: populating the project section problems
-    // changing the project means moving the task from the current 
-    // project to another project.
 }
 
 
