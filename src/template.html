@@ -41,7 +41,7 @@
                         </select>
                     </li>
                     <div id="modal-btn-container">
-                        <button id="submit" type="submit" value="default">Submit</button>
+                        <button id="submit" name="submit" type="submit" value="default">Submit</button>
                         <button autofocus type="reset" id="close-modal-btn" value="cancel" formmethod="dialog">Cancel</button>
                     </div>
                 </ul>
@@ -50,7 +50,7 @@
         <dialog id="edit-task-modal">
             <h3>Edit a todo task</h3>
             <form id="edit-task-form" method="dialog">
-                <ul>
+                <ul id="edit-task-ul">
                     <li>
                         <label for="title">Task Title</label>
                         <input type="text" id="title" name="title" max-lenth="50" required>
@@ -77,7 +77,7 @@
                     </li>
                     <div id="modal-btn-container">
                         <button id="submit" type="submit" value="default">Submit</button>
-                        <button autofocus type="cancel" id="cancel-edit" value="cancel" formmethod="dialog">Cancel</button>
+                        <button autofocus name="cancel" id="cancel" value="cancel" formmethod="dialog">Cancel</button>
                     </div>
                 </ul>
             </form>

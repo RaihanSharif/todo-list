@@ -5,8 +5,6 @@ import Task from "./task";
 
 import { mainProjects } from "./index.js";
 
-
-
 //TODO: create a separate function for population project select options in the forms.
 
 function createTaskCard(task) {
@@ -23,6 +21,7 @@ function createTaskCard(task) {
     taskCheckbox.setAttribute('type', 'checkbox');
     taskCheckbox.classList.add('task-checkbox');
     taskCheckbox.setAttribute('data-title', task.title);
+    taskCheckbox.name = 'task-checkbox';
 
     // if checkbox is checked, the task is marked as completed
     // the card gets a isChecked = true, data
@@ -52,7 +51,7 @@ function createTaskCard(task) {
     taskPriority.textContent = task.priority; //TODO: this may be a number that needs to be turned into text {low, medium, high}
 
     const taskEdit = document.createElement('span'); // TODO: change to div?
-    taskEdit.classList.add("task-edit-btn", "fa-solid", "fa-edit");
+    taskEdit.classList.add("task-edit", "fa-solid", "fa-edit");
     taskEdit.setAttribute('data-title', task.title);
     // TODO: add edit button event listener.
 
@@ -71,77 +70,50 @@ function createTaskCard(task) {
     return card;
 }
 
-function renderProjectTasks(project) {
-    const taskDisplay = document.getElementById("content");
-    taskDisplay.innerHTML = '';
-    const projName = document.createElement('h2');
-    projName.id = 'tasks-header';
-    projName.textContent = project.title;
-
-    taskDisplay.appendChild(projName);
-
-    project.taskList.forEach(task => {
-        taskDisplay.appendChild(createTaskCard(task));
-    });
-
-    // TODO: can probably move this out of here
-    taskDisplay.addEventListener('click', (ev) => {
-        const target = ev.target;
-        const task = project.getTask(target.dataset.title);
-        if (target.classList.contains('task-del')) {
-            project.removeTask(task);
-            renderProjectTasks(project);
-
-        } else if (target.classList.contains('task-edit-btn')) {
-            const editModal = document.getElementById("edit-task-modal");
-            const editForm = document.getElementById('edit-task-form');
-            const cancelBtn = editForm.querySelector("#cancel-edit");
-            editModal.showModal();
-            populateTaskEditForm(task, editForm);
-
-            editForm.addEventListener('submit', (ev) => {
-                console.log(ev);
-                console.log("submit event triggered");
-                editTaskSubmitHandler(editModal, task);
-                renderProjectTasks(project);
-            });
-
-            cancelBtn.addEventListener('click', (ev) => {
-                ev.preventDefault();
-                editModal.close();
-                renderProjectTasks(project);
-            });
-        }
-    });
-}
-
-
-function editTaskSubmitHandler(modalIn, task) {
-    const taskForm = modalIn.querySelector("#edit-task-form");
-    // capture form data
-    const data = Object.fromEntries(new FormData(taskForm));
-    // update task object
+function updateTask(task, data) {
     task.title = data.title;
     task.description = data.description;
     task.dueDate = data.dueDate;
     task.priority = data.priority;
 }
 
-// TODO: parameterize it later. Not used right now
-function projectSelectOptions(formIn) {
-    const projectSelect = formIn.querySelector('#project');
-    projectSelect.innerHTML = '';
-    mainProjects.projects.forEach(proj => {
-            const opt = document.createElement("option");
-            opt.value = proj.title;
-            opt.textContent = proj.title;
-            projectSelect.appendChild(opt);
+function renderProjectTasks(project) {
+    const taskDisplay = document.getElementById("content");
+    const projName = document.createElement('h2');
+    const taskEditModal = document.getElementById('edit-task-modal');
+    const taskEditForm = document.getElementById('edit-task-form');
+
+
+    taskDisplay.innerHTML = '';
+    projName.id = 'tasks-header';
+    projName.textContent = project.title;
+
+    taskDisplay.appendChild(projName);
+    project.taskList.forEach(task => {
+        const newTask = createTaskCard(task);
+        taskDisplay.appendChild(newTask);
+
+        newTask.addEventListener('click', (ev) =>{
+            const targ = ev.target;
+            if (targ.classList.contains('task-del')) {
+                project.removeTask(task);
+                taskDisplay.removeChild(newTask);
+            };
+            if (targ.classList.contains('task-edit')) {
+                populateTaskEditForm(task, taskEditForm);
+                taskEditModal.showModal();
+                taskEditForm.addEventListener('submit', () => {
+                    const data = Object.fromEntries(new FormData(taskEditForm));
+                    updateTask(task, data);
+                    renderProjectTasks(project);
+                }, {once: true});
+            }
+            
+        });
     });
 }
 
-
 function populateTaskEditForm(task, editForm) {
-    
     const title = editForm.elements['title'];
     title.value = task.title;
 
