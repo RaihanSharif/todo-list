@@ -1,8 +1,9 @@
 // TODO: use font-awesome icons
 
-import { differenceInBusinessDays } from "date-fns";
 import Project from "./project";
 import Task from "./task";
+
+import { mainProjects } from "./index.js";
 
 
 
@@ -95,22 +96,55 @@ function renderProjectTasks(project) {
         } else if (target.classList.contains('task-edit-btn')) {
             // edit
             const modal = document.getElementById("edit-task-modal");
-            console.log(modal);
             modal.showModal();
             populateTaskEditForm(task);
         }
     });
 }
 
+
+// TODO: parameterize it later
+function projectSelectOptions(formIn) {
+    const projectSelect = formIn.querySelector('#project');
+    projectSelect.innerHTML = '';
+    mainProjects.projects.forEach(proj => {
+            const opt = document.createElement("option");
+            opt.value = proj.title;
+            opt.textContent = proj.title;
+            projectSelect.appendChild(opt);
+    });
+}
+
+
 function populateTaskEditForm(task) {
-
     const editForm = document.getElementById('edit-task-form');
-
     const title = editForm.elements['title'];
     title.value = task.title;
-    console.log(title);
+
+    const description = editForm.elements['description'];
+    description.value = task.description;
+    
+    // sets project options
+    // projectSelectOptions(editForm);
+
+    const date = editForm.elements['dueDate'];
+    console.log(date);
+    date.value = task.dueDate;
 
 
+    const priority = editForm.elements['priority'];
+    // correctly selects the prexisting priority as the default value
+    for (let i = 0; i < priority.options.length; i++) {
+        let opt = priority.options[i].textContent;
+        let prev = task.priority;
+        if(opt === prev) {
+            priority.selectedIndex = i;
+        }
+    }
+
+    // TODO: populating the project section problems
+    // changing the project means moving the task from the current 
+    // project to another project.
 }
 
 
@@ -176,7 +210,7 @@ function renderNewProject(projectList, containerElem) {
     
 }
 
-// TODO: is there a better way to wrap all this up?
+// TODO: Too many things in one function
 function renderNewTask(projectList) {
     const newTaskBtn = document.getElementById('new-task-btn');
     const modal = document.getElementById("new-task-modal");
@@ -191,6 +225,7 @@ function renderNewTask(projectList) {
     });
     
 
+    //TODO: move this out of here
     newTaskBtn.addEventListener('click', () => {
         projectSelect.innerHTML = '';
         projectList.projects.forEach(proj => {
