@@ -31,4 +31,24 @@ renderNewTask(mainProjects);
 
 renderProjectTasks(homework);
 
+const displayAllBtn = document.getElementById('show-all-tasks');
+
+function displayAllTasks(projectList) {
+    // combined all the projects into a single project
+
+    const masterProject = new Project('All projects', 'sddsf');
+
+    projectList.projects.forEach(proj => {
+        proj.taskList.forEach(elem => {
+            masterProject.addTask(elem);
+        });
+    });
+
+    renderProjectTasks(masterProject);
+}
+
+displayAllBtn.addEventListener('click', () => {
+    displayAllTasks(mainProjects);
+});
+
 export {mainProjects};

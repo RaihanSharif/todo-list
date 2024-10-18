@@ -85,7 +85,8 @@ function renderProjectTasks(project) {
 
 
     taskDisplay.innerHTML = '';
-    projName.id = 'tasks-header';
+    projName.classList.add('tasks-header');
+    projName.id = project.title;
     projName.textContent = project.title;
 
     taskDisplay.appendChild(projName);
@@ -252,5 +253,15 @@ function renderNewTask(projectList) {
     });
 
 }
+
+function displayAllTasks() {
+    console.log('asdas');
+    mainProjects.projects.forEach(project => {
+        const projectDisplayed = document.getElementsByClassName('tasks-header');
+        console.log(projectDisplayed);
+    });
+}
+
+
 
 export {renderProjects, renderNewProject, renderNewTask, renderProjectTasks};
