@@ -10,25 +10,27 @@ import { renderNewProject, renderProjects, renderNewTask } from "./render.js";
 //default importing an image example. can be used as src of img html element
 // import odingImage from "./oding.png";
 
-const projects = new ProjectList();
+const mainProjects = new ProjectList();
 const other = new Project("Other", "Tasks that are not assigned to a project");
-projects.addProject(other);
+mainProjects.addProject(other);
 
 
 
 
 const homework = new Project("Homework", "testing bro");
-const task1 = new Task('odin project', 'complete faster', 'asdf', 'high');
+const task1 = new Task('odin project', 'complete faster', '2024-12-10', 'high');
 homework.addTask(task1);
-homework.addTask(new Task("C++", "learn about asynchonous execution", "asef", 'high'));
-projects.addProject(homework);
+homework.addTask(new Task("C++", "learn about asynchonous execution", "2024-12-12", 'high'));
+mainProjects.addProject(homework);
 
 
 
 
 const projListContainer = document.getElementById("projects-inner");
-renderProjects(projects, projListContainer);
+renderProjects(mainProjects, projListContainer);
 
-renderNewProject(projects, projListContainer);
+renderNewProject(mainProjects, projListContainer);
 
-renderNewTask(projects);
+renderNewTask(mainProjects);
+
+export {mainProjects};
