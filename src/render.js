@@ -2,25 +2,23 @@
 
 import Project from "./project";
 import Task from "./task";
-import { buildTaskCard, buildTaskList } from "./DOMBuilders.js";
+import { buildTaskCard, buildTaskList, populateTaskForm } from "./DOMBuilders.js";
 import { mainProjects, tasksContainer } from "./index.js";
 
 
 // builder builds the elements, render decides where the cards are shown
+// render should not build or do other things. Just display supplied DOM content
 
-function updateTask(task, data) {
-    task.title = data.title;
-    task.description = data.description;
-    task.dueDate = data.dueDate;
-    task.priority = data.priority;
-}
 
-// TODO: change this so it takes in an array of cards, not a Task object list
-function renderTasks(taskArray, DOMcontainerElem) {
-    const tasks = buildTaskList(taskArray);
-    console.log(Array.isArray(tasks));
+/**
+ * Takes in an array of task cards and a DOM element
+ * appends the task cards to the DOM element
+ * @param {array} cardsArray 
+ * @param {object} DOMcontainerElem 
+ */
+function renderTasks(cardsArray, DOMcontainerElem) {
     DOMcontainerElem.innerHTML = '';
-    tasks.forEach(elem => {
+    cardsArray.forEach(elem => {
         console.log(elem);
         DOMcontainerElem.appendChild(elem);
     });
@@ -66,33 +64,7 @@ function renderProjectTasks(project) {
 
 */
 
-function populateTaskEditForm(task, editForm) {
-    const title = editForm.elements['title'];
-    title.value = task.title;
 
-    const description = editForm.elements['description'];
-    description.value = task.description;
-    
-    // TODO: populating the project section problems
-    // changing the project means moving the task from the current 
-    // project to another project.
-
-    // projectSelectOptions(editForm);
-
-    const date = editForm.elements['dueDate'];
-    date.value = task.dueDate;
-
-
-    const priority = editForm.elements['priority'];
-    // correctly selects the prexisting priority as the default value
-    for (let i = 0; i < priority.options.length; i++) {
-        let opt = priority.options[i].textContent;
-        let prev = task.priority;
-        if(opt === prev) {
-            priority.selectedIndex = i;
-        }
-    }
-}
 
 
 function createProjectCard(project) {
@@ -103,6 +75,7 @@ function createProjectCard(project) {
     const projectName = document.createElement("p");
     projectName.textContent = project.title;
     projectName.addEventListener('click', () => {  //TODO: separate out event listener
+        // create DOMTaskList and then supply that to the renderTasks?
         renderTasks(project.taskList, tasksContainer);
     });
     li.appendChild(projectName);

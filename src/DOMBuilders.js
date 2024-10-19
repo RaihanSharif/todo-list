@@ -1,3 +1,5 @@
+//TODO: make all this a single static class
+
 function buildTaskCard(task) {
     const card = document.createElement("div");
     card.classList.add('task-card');
@@ -78,7 +80,6 @@ function buildTaskCard(task) {
  */
 function buildTaskList(taskArray) {
     const cardsArray = [];
-    console.log(Array.isArray(taskArray));
     taskArray.forEach(taskElem => {
         const temp = buildTaskCard(taskElem);
         cardsArray.push(temp);
@@ -86,4 +87,37 @@ function buildTaskList(taskArray) {
     return cardsArray;
 }
 
-export {buildTaskCard, buildTaskList};
+
+function populateTaskForm(task, editForm) {
+    const title = editForm.elements['title'];
+    title.value = task.title;
+
+    const description = editForm.elements['description'];
+    description.value = task.description;
+    
+    // TODO: populating the project section problems
+    // changing the project means moving the task from the current 
+    // project to another project.
+
+    // projectSelectOptions(editForm);
+
+    const date = editForm.elements['dueDate'];
+    date.value = task.dueDate;
+
+
+    const priority = editForm.elements['priority'];
+    // correctly selects the prexisting priority as the default value
+    for (let i = 0; i < priority.options.length; i++) {
+        let opt = priority.options[i].textContent;
+        let prev = task.priority;
+        if(opt === prev) {
+            priority.selectedIndex = i;
+        }
+    }
+}
+
+
+function buildProjectCard() {
+
+}
+export {buildTaskCard, buildTaskList, populateTaskForm};

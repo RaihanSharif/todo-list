@@ -1,6 +1,5 @@
 import Task from "./task.js";
 
-
 class Project {
     taskList= [];
 

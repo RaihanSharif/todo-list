@@ -17,7 +17,6 @@ class ProjectList {
             return false;
         }
 
-        // TODO: might need to cange this to check for title instead
         if(this.projects.includes(project)) {
             console.log("project already exists");
             return false;
@@ -44,14 +43,6 @@ class ProjectList {
             return false;
         }
     }
- // TODO: add static function to move a task between projects
 }
-
-const proj = new ProjectList();
-const pr1 = new Project("Asdf", "WWOWOW");
-
-proj.addProject(pr1);
-
-
 
 export default ProjectList;

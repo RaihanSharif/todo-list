@@ -15,6 +15,14 @@ class Task {
     undoComplete() {
         this.isComplete = false;
     }
+
+    // TODO: passes in a data object. not all values added yet
+    updateTask(data) {
+        this.title = data.title;
+        this.description = data.description;
+        this.dueDate = data.dueDate;
+        this.priority = data.priority;
+    }
 };
 
 export default Task;

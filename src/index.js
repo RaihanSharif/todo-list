@@ -4,6 +4,7 @@ import Task from "./task.js";
 import Project from "./project.js"
 import ProjectList from "./projectList.js";
 import { renderNewProject, renderProjects, renderNewTask, renderTasks } from "./render.js";
+import { buildTaskList } from "./DOMBuilders.js";
 
 // TODO: make sure controller/model does not depend on the view.
 
@@ -40,7 +41,10 @@ renderNewTask(mainProjects);
 
 const tasksContainer = document.getElementById('tasks-container');
 
-renderTasks(homework.taskList, tasksContainer);
+const taskCards = buildTaskList(homework.taskList);
+console.log(taskCards);
+
+renderTasks(taskCards, tasksContainer);
 
 
 export {mainProjects, tasksContainer};
