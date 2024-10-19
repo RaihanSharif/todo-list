@@ -3,8 +3,8 @@ import "./styles.css";
 import Task from "./task.js";
 import Project from "./project.js"
 import ProjectList from "./projectList.js";
-import { renderNewProject, renderProjects, renderNewTask, renderTasks } from "./render.js";
-import { buildTaskList } from "./DOMBuilders.js";
+import {renderProjects, renderTasks } from "./render.js";
+import { buildTaskCardList, buildProjectCardList } from "./DOMBuilders.js";
 
 // TODO: make sure controller/model does not depend on the view.
 
@@ -30,21 +30,14 @@ homework.addTask(new Task("C++", "learn about asynchonous execution", "2024-12-1
 mainProjects.addProject(homework);
 
 
-const projListContainer = document.getElementById("projects-inner");
-renderProjects(mainProjects, projListContainer);
-
-renderNewProject(mainProjects, projListContainer);
-
-renderNewTask(mainProjects);
-
-// renderProjectTasks(homework);
+const projContainer = document.getElementById('projects-inner');
+const projCards = buildProjectCardList(mainProjects.projects);
+renderProjects(projCards, projContainer);
 
 const tasksContainer = document.getElementById('tasks-container');
-
-const taskCards = buildTaskList(homework.taskList);
-console.log(taskCards);
-
+const taskCards = buildTaskCardList(homework.taskList);
 renderTasks(taskCards, tasksContainer);
 
 
-export {mainProjects, tasksContainer};
+
+export {mainProjects, tasksContainer, taskCards};

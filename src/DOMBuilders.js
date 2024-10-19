@@ -78,7 +78,7 @@ function buildTaskCard(task) {
  * @param Task[]
  * @returns array of task cards
  */
-function buildTaskList(taskArray) {
+function buildTaskCardList(taskArray) {
     const cardsArray = [];
     taskArray.forEach(taskElem => {
         const temp = buildTaskCard(taskElem);
@@ -86,6 +86,53 @@ function buildTaskList(taskArray) {
     });
     return cardsArray;
 }
+
+function buildProjectCard(project) {
+    const card = document.createElement('div');
+    card.classList.add('project-card');
+    card.setAttribute('data-title', project.title);
+
+    const projName = document.createElement('p');
+    projName.classList.add('project-name');
+    projName.textContent = project.title;
+
+    const iconContainer = document.createElement('div');
+    iconContainer.classList.add('project-icon-container');
+
+    const projEdit = document.createElement('span');
+    projEdit.classList.add('edit-project', 'fa-solid', 'fa-edit');
+    projEdit.setAttribute('data-title', project.title);
+    
+    const projDel = document.createElement('span');
+    projDel.classList.add('delete-project', 'fa-solid', 'fa-trash');
+    projDel.setAttribute('data-title', project.title);
+    // iconContainer.appendChild(projEdit);
+    // iconContainer.appendChild(projDel);
+
+    card.appendChild(projName);
+    card.appendChild(projEdit);
+    card.appendChild(projDel);
+
+
+    return card;
+    // TODO: event listeners added to container, not here
+    // projectName.addEventListener('click', () => {  
+    //     // create DOMTaskList and then supply that to the renderTasks?
+    //     renderTasks(taskCards, tasksContainer);  
+    // });
+    // li.appendChild(projectName);
+    
+}
+
+function buildProjectCardList(projectArray) {
+    console.log(projectArray);
+    const cardsArr = [];
+    projectArray.forEach(projElem => {
+        cardsArr.push(buildProjectCard(projElem));
+    });
+    return cardsArr;
+}
+
 
 
 function populateTaskForm(task, editForm) {
@@ -116,8 +163,4 @@ function populateTaskForm(task, editForm) {
     }
 }
 
-
-function buildProjectCard() {
-
-}
-export {buildTaskCard, buildTaskList, populateTaskForm};
+export {buildTaskCard, buildTaskCardList, populateTaskForm, buildProjectCard, buildProjectCardList};
