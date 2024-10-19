@@ -68,21 +68,48 @@ ul {
 
 .task-card {
   display: flex;
-  /* padding: 1rem; */
-  gap: 3rem;
+  padding: 0.1rem 1rem;
+  gap: 1rem;
   /* border: 2px solid black; */
   border-radius: 5px;
   box-shadow: 2px 2px 2px 2px black;
   backdrop-filter: brightness(150%);
+  justify-content: space-between;
 
 }
 
-.task-card * {
-  padding: 1rem;
+.card-content-container {
+  display: grid;
+  /* grid-template-columns: 10px auto auto auto auto; */
+  grid-template-columns: 0.5fr 8fr 12fr 5fr 1fr;
+  gap: 1rem;
+  align-content: center;
+  justify-content: flex-start;
+}
+
+.card-content-container > * {
+  /* background-color: aliceblue; */
+  padding: 0.5rem;
+  align-content: center;
+}
+
+.card-content-container *:hover {
   background-color: aliceblue;
 }
 
-#content {
+.button-container *:hover {
+  background-color: aliceblue;
+}
+.button-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-container > * {
+  padding: 1rem;
+}
+#tasks-container {
   background-color: #cbe1e2;
   display: flex;
   flex-direction: column;

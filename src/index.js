@@ -3,12 +3,19 @@ import "./styles.css";
 import Task from "./task.js";
 import Project from "./project.js"
 import ProjectList from "./projectList.js";
-import { renderNewProject, renderProjects, renderNewTask, renderProjectTasks } from "./render.js";
+import { renderNewProject, renderProjects, renderNewTask, renderTasks } from "./render.js";
 
 // TODO: make sure controller/model does not depend on the view.
 
 //default importing an image example. can be used as src of img html element
 // import odingImage from "./oding.png";
+
+
+function init() {
+    // load data
+    // populate content on page 
+    // set up event listeners
+}
 
 const mainProjects = new ProjectList();
 const other = new Project("Other", "Tasks that are not assigned to a project");
@@ -29,26 +36,11 @@ renderNewProject(mainProjects, projListContainer);
 
 renderNewTask(mainProjects);
 
-renderProjectTasks(homework);
+// renderProjectTasks(homework);
 
-const displayAllBtn = document.getElementById('show-all-tasks');
+const tasksContainer = document.getElementById('tasks-container');
 
-function displayAllTasks(projectList) {
-    // combined all the projects into a single project
+renderTasks(homework.taskList, tasksContainer);
 
-    const masterProject = new Project('All projects', 'sddsf');
 
-    projectList.projects.forEach(proj => {
-        proj.taskList.forEach(elem => {
-            masterProject.addTask(elem);
-        });
-    });
-
-    renderProjectTasks(masterProject);
-}
-
-displayAllBtn.addEventListener('click', () => {
-    displayAllTasks(mainProjects);
-});
-
-export {mainProjects};
+export {mainProjects, tasksContainer};

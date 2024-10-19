@@ -2,73 +2,11 @@
 
 import Project from "./project";
 import Task from "./task";
+import { buildTaskCard, buildTaskList } from "./DOMBuilders.js";
+import { mainProjects, tasksContainer } from "./index.js";
 
-import { mainProjects } from "./index.js";
 
-//TODO: create a separate function for population project select options in the forms.
-
-function createTaskCard(task) {
-    const card = document.createElement("div");
-    card.classList.add('task-card');
-    card.setAttribute('data-title', task.title);
-    card.setAttribute('data-isChecked', false);
-
-    const taskTitle = document.createElement('h3');
-    taskTitle.textContent = task.title;
-    taskTitle.classList.add('task-title');
-
-    const taskCheckbox = document.createElement("input");
-    taskCheckbox.setAttribute('type', 'checkbox');
-    taskCheckbox.classList.add('task-checkbox');
-    taskCheckbox.setAttribute('data-title', task.title);
-    taskCheckbox.name = 'task-checkbox';
-
-    // if checkbox is checked, the task is marked as completed
-    // the card gets a isChecked = true, data
-    // tested - works 
-    taskCheckbox.addEventListener('change', () => {
-        if (taskCheckbox.checked) {
-            task.isComplete = true;
-            card.dataset.isChecked = true;
-        } else {
-            task.isComplete = false;
-            card.dataset.isChecked = false;
-
-        }
-    });
-
-    const taskDesc = document.createElement('p');
-    taskDesc.textContent = task.description;
-    taskDesc.classList.add("task-desc");
-
-    const taskDate = document.createElement('span');  //TODO: change to date/time tag later
-    taskDate.textContent = `Due: ${task.dueDate}`;
-    taskDate.classList.add('task-due-date');
-
-    const taskPriority = document.createElement('div');
-    taskPriority.classList.add('task-priority'); // TODO: color of div will change based on value
-    taskPriority.setAttribute('data-priority', task.priority);
-    taskPriority.textContent = task.priority; //TODO: this may be a number that needs to be turned into text {low, medium, high}
-
-    const taskEdit = document.createElement('span'); // TODO: change to div?
-    taskEdit.classList.add("task-edit", "fa-solid", "fa-edit");
-    taskEdit.setAttribute('data-title', task.title);
-    // TODO: add edit button event listener.
-
-    const taskDel = document.createElement('span');
-    taskDel.classList.add('task-del', 'fa-solid', 'fa-trash');
-    taskDel.setAttribute('data-title', task.title);
-
-    card.appendChild(taskCheckbox);
-    card.appendChild(taskTitle);
-    card.appendChild(taskDesc);
-    card.appendChild(taskDate);
-    card.appendChild(taskPriority);
-    card.appendChild(taskEdit);
-    card.appendChild(taskDel);
-
-    return card;
-}
+// builder builds the elements, render decides where the cards are shown
 
 function updateTask(task, data) {
     task.title = data.title;
@@ -77,6 +15,18 @@ function updateTask(task, data) {
     task.priority = data.priority;
 }
 
+// TODO: change this so it takes in an array of cards, not a Task object list
+function renderTasks(taskArray, DOMcontainerElem) {
+    const tasks = buildTaskList(taskArray);
+    console.log(Array.isArray(tasks));
+    DOMcontainerElem.innerHTML = '';
+    tasks.forEach(elem => {
+        console.log(elem);
+        DOMcontainerElem.appendChild(elem);
+    });
+}
+
+/*
 function renderProjectTasks(project) {
     const taskDisplay = document.getElementById("content");
     const projName = document.createElement('h2');
@@ -91,7 +41,7 @@ function renderProjectTasks(project) {
 
     taskDisplay.appendChild(projName);
     project.taskList.forEach(task => {
-        const newTask = createTaskCard(task);
+        const newTask = buildTaskCard(task);
         taskDisplay.appendChild(newTask);
 
         newTask.addEventListener('click', (ev) =>{
@@ -113,6 +63,8 @@ function renderProjectTasks(project) {
         });
     });
 }
+
+*/
 
 function populateTaskEditForm(task, editForm) {
     const title = editForm.elements['title'];
@@ -150,8 +102,8 @@ function createProjectCard(project) {
 
     const projectName = document.createElement("p");
     projectName.textContent = project.title;
-    projectName.addEventListener('click', () => {
-        renderProjectTasks(project);
+    projectName.addEventListener('click', () => {  //TODO: separate out event listener
+        renderTasks(project.taskList, tasksContainer);
     });
     li.appendChild(projectName);
     
@@ -264,4 +216,4 @@ function displayAllTasks() {
 
 
 
-export {renderProjects, renderNewProject, renderNewTask, renderProjectTasks};
+export {renderProjects, renderNewProject, renderNewTask, renderTasks};
