@@ -6,6 +6,7 @@ import ProjectList from "./projectList.js";
 import {renderProjects, renderTasks } from "./render.js";
 import { buildTaskCardList, buildProjectCardList } from "./DOMBuilders.js";
 import { initListeners } from "./eventHandlers.js";
+import { initForms } from "./forms.js"
 
 // TODO: make sure controller/model does not depend on the view.
 
@@ -14,6 +15,7 @@ function init(projectList) {
     // populate content on page 
     // set up event listeners
     initListeners(projectList);
+    initForms(projectList);
 }   
 
 const mainProjects = new ProjectList();
