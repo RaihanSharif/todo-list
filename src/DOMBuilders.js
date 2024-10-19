@@ -40,14 +40,13 @@ function buildTaskCard(task) {
     const taskPriority = document.createElement('div');
     taskPriority.classList.add('task-priority'); // TODO: color of div will change based on value
     taskPriority.setAttribute('data-priority', task.priority);
-    taskPriority.textContent = task.priority; //TODO: this may be a number that needs to be turned into text {low, medium, high}
+    taskPriority.textContent = task.priority; 
 
     
 
-    const taskEdit = document.createElement('span'); // TODO: change to div?
+    const taskEdit = document.createElement('span');
     taskEdit.classList.add("task-edit", "fa-solid", "fa-edit");
     taskEdit.setAttribute('data-title', task.title);
-    // TODO: add edit button event listener.
 
     const taskDel = document.createElement('span');
     taskDel.classList.add('task-del', 'fa-solid', 'fa-trash');
@@ -55,7 +54,6 @@ function buildTaskCard(task) {
 
     const contentContainer = document.createElement('div');
     contentContainer.classList.add('card-content-container');
-
 
     contentContainer.appendChild(taskCheckbox);
     contentContainer.appendChild(taskTitle);
@@ -95,6 +93,7 @@ function buildProjectCard(project) {
     const projName = document.createElement('p');
     projName.classList.add('project-name');
     projName.textContent = project.title;
+    projName.setAttribute('data-title', project.title);
 
     const iconContainer = document.createElement('div');
     iconContainer.classList.add('project-icon-container');

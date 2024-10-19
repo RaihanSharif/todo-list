@@ -6,8 +6,8 @@ class ProjectList {
 
     // TODO: static field to track number of projects
     // returns the matching object
-    getProject(attribute, value) {
-        return this.projects.find(proj => proj[attribute] === value);
+    getProject(titleValue) {
+        return this.projects.find(({ title }) => title === titleValue);
     }
 
     // returns false if project already in list

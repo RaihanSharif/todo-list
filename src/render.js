@@ -9,7 +9,7 @@
  * @param {array} cardsArray 
  * @param {object} DOMcontainerElem 
  */
-function renderTasks(cardsArray, DOMcontainerElem) {
+function renderTasks(cardsArray, DOMcontainerElem) { // TODO: it might be better to just take an array of tasks instead of card array
     DOMcontainerElem.innerHTML = '';
     cardsArray.forEach(elem => {
         DOMcontainerElem.appendChild(elem);
@@ -17,7 +17,7 @@ function renderTasks(cardsArray, DOMcontainerElem) {
 }
 
 
-function renderProjects(projectCardList, DOMcontainer) {
+function renderProjects(projectCardList, DOMcontainer) { 
     DOMcontainer.innerHTML = '';
     projectCardList.forEach(projCard => {
         DOMcontainer.appendChild(projCard);
