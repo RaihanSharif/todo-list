@@ -12,7 +12,6 @@ function showNewTaskFormModal(projectList) {
 }
 
 function newTaskSubmitHandler(form, projectList, container) {
-    
     const data = Object.fromEntries(new FormData(form));
 
     const newTask = new Task(data.title, data.description, data.dueDate, data.priority, data.project);
@@ -144,7 +143,11 @@ function renameProjectHandler(event) {
 
 }
 
-function displayAllTasksHandler(event) {
+function displayAllTasksHandler(event, projectList, container) {
+    const taskArr = projectList.getAllTasks();
+    console.log(taskArr);
+    const cards = buildTaskCardList(taskArr);
+    renderTasks(cards, container)
 
 }
 
@@ -168,6 +171,8 @@ function initListeners(projList) {
 
     const editTaskModal = document.getElementById('edit-task-modal');
     const editTaskForm = document.getElementById('edit-task-form');
+
+    const allTasksBtn = document.getElementById('show-all-tasks');
 
     projContainer.addEventListener('click', (ev) => {
         deleteProjectHandler(ev, projList);
@@ -198,6 +203,10 @@ function initListeners(projList) {
 
     newProjBtn.addEventListener('click', (ev) => {
         newProjectHandler(projList, projContainer);
+    });
+
+    allTasksBtn.addEventListener('click', (ev) => {
+        displayAllTasksHandler(ev, projList, taskContainer);
     });
 }
 

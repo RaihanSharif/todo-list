@@ -134,6 +134,17 @@ ul {
   /* backdrop-filter: brightness(80%); */
 }
 
+#new-project-btn {
+  display: flex;
+  padding: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+#new-project-btn:hover {
+  backdrop-filter: brightness(80%);
+}
 
 dialog[open] {
   display: flex;

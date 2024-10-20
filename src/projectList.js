@@ -44,6 +44,20 @@ class ProjectList {
         }
     }
 
+    getAllTasks() {
+        let tasks = [];
+        this.projects.forEach(project => {
+            tasks.push(project.taskList);
+        });
+        tasks = tasks.flat();
+        console.log(tasks);
+        return tasks;
+    }
+
+    filterByDueDate(filterValue) {
+        
+    }
+
 }
 
 export default ProjectList;

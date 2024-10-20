@@ -52,7 +52,6 @@ function initForms(projList) {
     const editTaskForm = document.getElementById('edit-task-form');
     buildProjctSelectInput(projList, newTaskForm);
     buildProjctSelectInput(projList, editTaskForm);
-    console.log(editTaskForm);
 }
 // TODO: populate the second form and other stuff
 export { initForms, populateEditTaskForm };

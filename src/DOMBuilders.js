@@ -130,7 +130,6 @@ function buildProjectCard(project) {
 }
 
 function buildProjectCardList(projectArray) {
-    console.log(projectArray);
     const cardsArr = [];
     projectArray.forEach(projElem => {
         cardsArr.push(buildProjectCard(projElem));
