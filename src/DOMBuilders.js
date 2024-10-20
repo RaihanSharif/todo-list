@@ -1,10 +1,13 @@
 //TODO: make all this a single static class
 
+// TODO: turk this in a card class 
+// then taskCard and project Card can inherit from card
 function buildTaskCard(task) {
     const card = document.createElement("div");
     card.classList.add('task-card');
     card.setAttribute('data-title', task.title);
     card.setAttribute('data-isChecked', false);
+    card.setAttribute('data-project', task.project);
 
     const taskTitle = document.createElement('h3');
     taskTitle.textContent = task.title;
@@ -42,7 +45,8 @@ function buildTaskCard(task) {
     taskPriority.setAttribute('data-priority', task.priority);
     taskPriority.textContent = task.priority; 
 
-    
+    const taskProject = document.createElement('span');
+    taskProject.textContent = task.project;
 
     const taskEdit = document.createElement('span');
     taskEdit.classList.add("task-edit", "fa-solid", "fa-edit");
@@ -51,6 +55,7 @@ function buildTaskCard(task) {
     const taskDel = document.createElement('span');
     taskDel.classList.add('task-del', 'fa-solid', 'fa-trash');
     taskDel.setAttribute('data-title', task.title);
+    taskDel.setAttribute('data-project', task.project);
 
     const contentContainer = document.createElement('div');
     contentContainer.classList.add('card-content-container');
@@ -60,6 +65,7 @@ function buildTaskCard(task) {
     contentContainer.appendChild(taskDesc);
     contentContainer.appendChild(taskDate);
     contentContainer.appendChild(taskPriority);
+    contentContainer.appendChild(taskProject);
 
     const buttonContainer = document.createElement('div');
     buttonContainer.classList.add('button-container');

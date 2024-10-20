@@ -15,7 +15,7 @@ function buildProjctSelectInput(projList, form) {
         opt.textContent = proj['title'];
         projSelect.appendChild(opt);
     });
+    projSelect.selectedIndex = 0;
 }
-
 // TODO: populate the second form and other stuff
 export { initForms };

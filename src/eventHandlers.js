@@ -7,24 +7,35 @@ function newTaskHandler() {
     taskModal.showModal();
 }
 
-
-
 function newTaskSubmitHandler(form, projectList, container) {
     
     const data = Object.fromEntries(new FormData(form));
 
-    const newTask = new Task(data.title, data.description, data.dueDate, data.priority);
+    const newTask = new Task(title, description, dueDate, priority, project);
     const proj = projectList.getProject(data.project);
     proj.addTask(newTask);
     const cards = buildTaskCardList(proj.taskList);
     renderTasks(cards, container);
 }
 
+// attach to the 
+function editTaskSubmitHandler() {
+
+}
+
 function editTaskHandler(event) {
 
 }
 
-function deleteTaskHandler(event) {
+function deleteTaskHandler(event, projectList, container) {
+    const target = event.target;
+    if (target.classList.contains('task-del')) {
+        const proj = projectList.getProject(target.dataset.project);
+        const task = proj.getTask(target.dataset.title);
+        proj.removeTask(task);
+        const cards = buildTaskCardList(proj.taskList);
+        renderTasks(cards, container);
+    }
 
 }
 
@@ -71,6 +82,15 @@ function displayAllTasksHandler(event) {
 
 }
 
+function setupFormCancelBtn(form) {
+    const cancelBtn = form.querySelector('#cancel');
+
+    cancelBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        form.parentNode.close();
+    });
+}
+
 function initListeners(projList) {
     const projContainer = document.getElementById('projects-inner');
     const taskContainer = document.getElementById('tasks-container');
@@ -78,6 +98,9 @@ function initListeners(projList) {
 
     const newTaskModal = document.getElementById('new-task-modal');
     const newTaskForm = newTaskModal.querySelector('#new-task-form');
+
+    const editTaskModal = document.getElementById('edit-task-modal');
+    const editTasForm = document.getElementById('edit-task-form');
 
     projContainer.addEventListener('click', (ev) => {
         deleteProjectHandler(ev, projList);
@@ -93,6 +116,13 @@ function initListeners(projList) {
     newTaskForm.addEventListener('submit', () => {
         newTaskSubmitHandler(newTaskForm, projList, taskContainer);
     });
+
+    setupFormCancelBtn(newTaskForm);
+    setupFormCancelBtn(editTaskModal);
+
+    taskContainer.addEventListener('click', (ev) => {
+        deleteTaskHandler(ev, projList, taskContainer);
+    })
 
 
 }

@@ -73,7 +73,7 @@ ul {
 .card-content-container {
   display: grid;
   /* grid-template-columns: 10px auto auto auto auto; */
-  grid-template-columns: 0.5fr 8fr 12fr 5fr 1fr;
+  grid-template-columns: auto 8fr 10fr 5fr 1fr 1fr;
   gap: 1rem;
   align-content: center;
   justify-content: flex-start;
