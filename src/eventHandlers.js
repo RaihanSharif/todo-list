@@ -1,7 +1,8 @@
-import { buildTaskCardList } from "./DOMBuilders.js"
+import { buildProjectCard, buildTaskCardList } from "./DOMBuilders.js"
 import { renderTasks } from "./render.js"
 import Task from "./task.js";
 import { populateEditTaskForm } from "./forms.js"
+import Project from "./project.js";
 
 function showNewTaskFormModal() {
     const taskModal = document.getElementById('new-task-modal');
@@ -34,7 +35,6 @@ function showEditTaskFormModal(ev, projList, form, modal) {
     }
 }
 
-
 function updateTask(task, data) {
     task.title = data.title;
     task.description = data.description;
@@ -43,7 +43,7 @@ function updateTask(task, data) {
     task.project = data.project;
 }
 
-function editTaskSubmitHandler(ev, projectList, form, container) {
+function editTaskSubmitHandler(projectList, form, container) {
     //find the appropriate task and project and update it.
     const data = Object.fromEntries(new FormData(form));
 
@@ -56,7 +56,6 @@ function editTaskSubmitHandler(ev, projectList, form, container) {
 
     const task = oldProject.getTask(taskDefault);
     
-    // get the task to be updated and change relevant values, except project.
     if (projectDefault != data.project) {
         const exists = newProject.getTask(data.title);
         if (exists) {
@@ -72,12 +71,6 @@ function editTaskSubmitHandler(ev, projectList, form, container) {
         const cards = buildTaskCardList(oldProject.taskList);
         renderTasks(cards, container);
     }
-
-
-
-    // if project is not the defaultValue
-            // call moveTask()
-
 }
 
 function deleteTaskHandler(event, projectList, container) {
@@ -92,12 +85,23 @@ function deleteTaskHandler(event, projectList, container) {
 
 }
 
-function moveTaskHandler(event) {
+function newProjectHandler(event, projectList, container) {
+    const title = prompt("project title: ");
+    while (title === '') {
+        title = prompt('please enter a title to continue, or press cancel');
+    }
+    if (title === null) { return 0; }
 
-}
-
-function newProjectHandler(event) {
-
+    const desc = prompt('Project description:');
+    const newProj = new Project(title, desc);
+    const added = projectList.addProject(newProj);
+    if (added) {
+        const projCard = buildProjectCard(newProj);
+        container.appendChild(projCard);
+        console.log(projectList);
+    } else {
+        alert("project already exists");
+    } 
 }
 
 function showProjectTasksHandler(event, project, taskContainer) {
@@ -146,6 +150,7 @@ function setupFormCancelBtn(modal) {
 
 function initListeners(projList) {
     const projContainer = document.getElementById('projects-inner');
+    const newProjBtn = document.getElementById('new-project-btn');
     const taskContainer = document.getElementById('tasks-container');
     const newTaskBtn = document.getElementById('new-task-btn');
 
@@ -180,9 +185,11 @@ function initListeners(projList) {
 
     editTaskForm.addEventListener('submit', (ev) => {
         editTaskSubmitHandler(ev, projList, editTaskForm, taskContainer);
-    })
+    });
 
-
+    newProjBtn.addEventListener('click', (ev) => {
+        newProjectHandler(ev, projList, projContainer);
+    });
 }
 
 export {initListeners};
