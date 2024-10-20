@@ -12,7 +12,7 @@ function newTaskSubmitHandler(form, projectList, container) {
     
     const data = Object.fromEntries(new FormData(form));
 
-    const newTask = new Task(title, description, dueDate, priority, project);
+    const newTask = new Task(data.title, data.description, data.dueDate, data.priority, data.project);
     const proj = projectList.getProject(data.project);
     proj.addTask(newTask);
     const cards = buildTaskCardList(proj.taskList);
