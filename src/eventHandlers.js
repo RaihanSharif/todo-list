@@ -1,8 +1,9 @@
-import { buildTaskCardList, populateTaskForm } from "./DOMBuilders.js"
+import { buildTaskCardList } from "./DOMBuilders.js"
 import { renderTasks } from "./render.js"
 import Task from "./task.js";
+import { populateEditTaskForm } from "./forms.js"
 
-function newTaskHandler() {
+function showNewTaskFormModal() {
     const taskModal = document.getElementById('new-task-modal');
     taskModal.showModal();
 }
@@ -15,15 +16,28 @@ function newTaskSubmitHandler(form, projectList, container) {
     const proj = projectList.getProject(data.project);
     proj.addTask(newTask);
     const cards = buildTaskCardList(proj.taskList);
-    renderTasks(cards, container);
+    renderTasks(cards, container); //TODO: make a function to delete a single card from the current task-container
 }
 
-// attach to the 
-function editTaskSubmitHandler() {
-
+// TODO: use the while loop to get the task card. Store all the data attributes to the card,
+// rather than the edit and delete buttons
+function showEditTaskFormModal(ev, projList, form, modal) {
+    if (ev.target.classList.contains('task-edit')){
+        let parent = ev.target.parentElement;
+        while (!parent.classList.contains('task-card')) {
+            parent = parent.parentElement;
+        }
+        const proj = projList.getProject(parent.dataset.project);
+        const task = proj.getTask(parent.dataset.title);
+        populateEditTaskForm(task, form);
+        modal.showModal();
+    }
 }
 
-function editTaskHandler(event) {
+function editTaskSubmitHandler(ev, projectList, form, container) {
+    //find the appropriate task and project and update it.
+    const data = Object.fromEntries(new FormData(form));
+    const project = projectList.getProject(data.project);
 
 }
 
@@ -82,12 +96,12 @@ function displayAllTasksHandler(event) {
 
 }
 
-function setupFormCancelBtn(form) {
-    const cancelBtn = form.querySelector('#cancel');
+function setupFormCancelBtn(modal) {
+    const cancelBtn = modal.querySelector('#cancel');
 
     cancelBtn.addEventListener('click', (event) => {
         event.preventDefault();
-        form.parentNode.close();
+        modal.close();
     });
 }
 
@@ -100,7 +114,7 @@ function initListeners(projList) {
     const newTaskForm = newTaskModal.querySelector('#new-task-form');
 
     const editTaskModal = document.getElementById('edit-task-modal');
-    const editTasForm = document.getElementById('edit-task-form');
+    const editTaskForm = document.getElementById('edit-task-form');
 
     projContainer.addEventListener('click', (ev) => {
         deleteProjectHandler(ev, projList);
@@ -110,19 +124,20 @@ function initListeners(projList) {
     });
 
     newTaskBtn.addEventListener('click', () => {
-        newTaskHandler();
+        showNewTaskFormModal();
     });
 
     newTaskForm.addEventListener('submit', () => {
         newTaskSubmitHandler(newTaskForm, projList, taskContainer);
     });
 
-    setupFormCancelBtn(newTaskForm);
+    setupFormCancelBtn(newTaskModal);
     setupFormCancelBtn(editTaskModal);
 
     taskContainer.addEventListener('click', (ev) => {
         deleteTaskHandler(ev, projList, taskContainer);
-    })
+        showEditTaskFormModal(ev, projList, editTaskForm, editTaskModal);
+    });
 
 
 }

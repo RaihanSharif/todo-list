@@ -17,5 +17,34 @@ function buildProjctSelectInput(projList, form) {
     });
     projSelect.selectedIndex = 0;
 }
+
+function populateEditTaskForm(task, editForm) {
+    const title = editForm.elements['title'];  //TODO: these two lines as one line
+    title.value = task.title;
+
+    const description = editForm.elements['description'];
+    description.value = task.description;
+ 
+    const date = editForm.elements['dueDate'];
+    date.value = task.dueDate;
+
+    const priority = editForm.elements['priority'];
+
+    // correctly selects the prexisting priority as the default value
+    for (let i = 0; i < priority.options.length; i++) {
+        let opt = priority.options[i].textContent;
+        let prev = task.priority;
+        if(opt === prev) {
+            priority.selectedIndex = i;
+        }
+    }
+    const project = editForm.elements['project'];
+    for (let i = 0; i < project.options.length; i++) {
+        let opt = project.options[i].textContent;
+        if (opt === task.project) {
+            project.selectedIndex = i;
+        }
+    }
+}
 // TODO: populate the second form and other stuff
-export { initForms };
+export { initForms, populateEditTaskForm };

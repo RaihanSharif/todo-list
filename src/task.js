@@ -1,6 +1,7 @@
 class Task {
     // isComplete is set to false by default
-    constructor(title, description, dueDate, priority, project, isComplete=false) {
+    constructor(title, description, dueDate, priority, 
+        project, isComplete=false) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;

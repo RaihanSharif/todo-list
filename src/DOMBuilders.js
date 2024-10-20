@@ -138,34 +138,4 @@ function buildProjectCardList(projectArray) {
     return cardsArr;
 }
 
-
-
-function populateTaskForm(task, editForm) {
-    const title = editForm.elements['title'];
-    title.value = task.title;
-
-    const description = editForm.elements['description'];
-    description.value = task.description;
-    
-    // TODO: populating the project section problems
-    // changing the project means moving the task from the current 
-    // project to another project.
-
-    // projectSelectOptions(editForm);
-
-    const date = editForm.elements['dueDate'];
-    date.value = task.dueDate;
-
-
-    const priority = editForm.elements['priority'];
-    // correctly selects the prexisting priority as the default value
-    for (let i = 0; i < priority.options.length; i++) {
-        let opt = priority.options[i].textContent;
-        let prev = task.priority;
-        if(opt === prev) {
-            priority.selectedIndex = i;
-        }
-    }
-}
-
-export {buildTaskCard, buildTaskCardList, populateTaskForm, buildProjectCard, buildProjectCardList};
+export {buildTaskCard, buildTaskCardList, buildProjectCard, buildProjectCardList};
