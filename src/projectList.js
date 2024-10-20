@@ -70,8 +70,7 @@ class ProjectList {
                 end: dueBeforeDate
             });
         });
-        console.log(`filtered tasks`);
-        console.log(filteredTasks);
+        console.log(`due before: ${dueBeforeDate}, due after ${dueAfterDate}`);
         return filteredTasks;
     }
 

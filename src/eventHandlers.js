@@ -178,7 +178,7 @@ function dueThisWeekHandler(event, projectList, container) {
     if (event.target.id === 'show-due-this-week') {
         const dueBefore = addWeeks(new Date(), 1);  // this works
 
-        const weekTasks = projectList.filterAllTasksByDueDate(dueBefore);
+        const weekTasks = projectList.filterAllTasksByDueDate(dueBefore, new Date());
         const cards = buildTaskCardList(weekTasks);
         renderTasks(cards, container);
     }
@@ -188,7 +188,7 @@ function dueThisMonthHandler(event, projectList, container) {
     if (event.target.id === 'show-due-this-month') {
         const dueBefore = addWeeks(new Date(), 4);  // this works
 
-        const monthTasks = projectList.filterAllTasksByDueDate(dueBefore);
+        const monthTasks = projectList.filterAllTasksByDueDate(dueBefore, new Date());
         const cards = buildTaskCardList(monthTasks);
         renderTasks(cards, container);
     }
