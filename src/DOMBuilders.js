@@ -37,7 +37,7 @@ function buildTaskCard(task) {
     taskDesc.classList.add("task-desc");
 
     const taskDate = document.createElement('span');  //TODO: change to date/time tag later
-    taskDate.textContent = `Due: ${task.dueDate}`;
+    taskDate.textContent = task.dueDate;
     taskDate.classList.add('task-due-date');
 
     const taskPriority = document.createElement('div');

@@ -26,6 +26,7 @@ function populateEditTaskForm(task, editForm) {
  
     const date = editForm.elements['dueDate'];
     date.value = task.dueDate;
+    console.log(task.dueDate);
 
     const priority = editForm.elements['priority'];
     // correctly selects the prexisting priority as the default value

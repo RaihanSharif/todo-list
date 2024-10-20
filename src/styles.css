@@ -59,24 +59,22 @@ ul {
 
 
 .task-card {
-  display: flex;
+  display: grid;
   padding: 0.1rem 1rem;
   gap: 1rem;
-  /* border: 2px solid black; */
+  /* border: 1px solid black; */
   border-radius: 5px;
-  box-shadow: 2px 2px 2px 2px black;
+  box-shadow: 1px 1px 1px 1px black;
   backdrop-filter: brightness(150%);
-  justify-content: space-between;
+  grid-template-columns: 1fr auto;
 
 }
 
 .card-content-container {
   display: grid;
-  /* grid-template-columns: 10px auto auto auto auto; */
-  grid-template-columns: auto 8fr 10fr 5fr 1fr 1fr;
+  grid-template-columns: auto 12rem 1fr auto auto auto;
   gap: 1rem;
-  align-content: center;
-  justify-content: flex-start;
+  align-items: center;
 }
 
 .card-content-container > * {

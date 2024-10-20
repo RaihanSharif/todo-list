@@ -4,6 +4,7 @@ import Task from "./task.js";
 import { populateEditTaskForm } from "./forms.js"
 import Project from "./project.js";
 import { initForms } from "./forms"
+import { compareAsc, isAfter, isToday } from "date-fns"
 
 function showNewTaskFormModal(projectList) {
     const taskModal = document.getElementById('new-task-modal');
@@ -160,6 +161,16 @@ function setupFormCancelBtn(modal) {
     });
 }
 
+function dueTodayHandler(projectList, container) {
+    const allTasks = projectList.getAllTasks();
+
+    const filteredTasks = allTasks.filter((elem) => {
+        return isToday(new Date(elem['dueDate']));
+    });
+    const cards = buildTaskCardList(filteredTasks);
+    renderTasks(cards, container)
+}
+
 function initListeners(projList) {
     const projContainer = document.getElementById('projects-inner');
     const newProjBtn = document.getElementById('new-project-btn');
@@ -173,6 +184,7 @@ function initListeners(projList) {
     const editTaskForm = document.getElementById('edit-task-form');
 
     const allTasksBtn = document.getElementById('show-all-tasks');
+    const dueTodayBtn = document.getElementById('show-due-today');
 
     projContainer.addEventListener('click', (ev) => {
         deleteProjectHandler(ev, projList);
@@ -198,7 +210,7 @@ function initListeners(projList) {
     });
 
     editTaskForm.addEventListener('submit', (ev) => {
-        editTaskSubmitHandler(ev, projList, editTaskForm, taskContainer);
+        editTaskSubmitHandler(projList, editTaskForm, taskContainer);
     });
 
     newProjBtn.addEventListener('click', (ev) => {
@@ -207,6 +219,11 @@ function initListeners(projList) {
 
     allTasksBtn.addEventListener('click', (ev) => {
         displayAllTasksHandler(ev, projList, taskContainer);
+    });
+
+    dueTodayBtn.addEventListener('click', (ev) => {
+        dueTodayHandler(projList, taskContainer);
+
     });
 }
 

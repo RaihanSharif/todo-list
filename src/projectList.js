@@ -1,5 +1,6 @@
 import Project from "./project.js";
 
+
 // a list of projects.
 class ProjectList {
     projects = [];
@@ -50,14 +51,8 @@ class ProjectList {
             tasks.push(project.taskList);
         });
         tasks = tasks.flat();
-        console.log(tasks);
         return tasks;
     }
-
-    filterByDueDate(filterValue) {
-        
-    }
-
 }
 
 export default ProjectList;
