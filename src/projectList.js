@@ -1,5 +1,6 @@
+import Task from "./task.js";
 import Project from "./project.js";
-
+import { compareAsc, isAfter, isBefore, isWithinInterval } from "date-fns"
 
 // a list of projects.
 class ProjectList {
@@ -53,6 +54,28 @@ class ProjectList {
         tasks = tasks.flat();
         return tasks;
     }
+
+
+    /**
+     * 
+     * @param {Date} dueAfterDate - the date after which the task is due 
+     * @param {Date} dueBeforeDate - the date before which the task is due
+     * @returns {Task[]} - An array of Task objects matching the criteria
+     */
+    filterAllTasksByDueDate(dueBeforeDate, dueAfterDate = new Date(0)) {
+        const tasks = this.getAllTasks();
+        const filteredTasks = tasks.filter((elem) => {
+            return isWithinInterval(new Date(elem['dueDate']), {
+                start: dueAfterDate,
+                end: dueBeforeDate
+            });
+        });
+        console.log(`filtered tasks`);
+        console.log(filteredTasks);
+        return filteredTasks;
+    }
+
+
 }
 
 export default ProjectList;

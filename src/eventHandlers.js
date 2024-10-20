@@ -4,7 +4,7 @@ import Task from "./task.js";
 import { populateEditTaskForm } from "./forms.js"
 import Project from "./project.js";
 import { initForms } from "./forms"
-import { compareAsc, isAfter, isToday } from "date-fns"
+import { compareAsc, isAfter, isBefore, isToday, addWeeks } from "date-fns"
 
 function showNewTaskFormModal(projectList) {
     const taskModal = document.getElementById('new-task-modal');
@@ -145,10 +145,11 @@ function renameProjectHandler(event) {
 }
 
 function displayAllTasksHandler(event, projectList, container) {
-    const taskArr = projectList.getAllTasks();
-    console.log(taskArr);
-    const cards = buildTaskCardList(taskArr);
-    renderTasks(cards, container)
+    if (event.target.id === 'show-all-tasks') {
+        const taskArr = projectList.getAllTasks();
+        const cards = buildTaskCardList(taskArr);
+        renderTasks(cards, container)
+    }
 
 }
 
@@ -161,15 +162,43 @@ function setupFormCancelBtn(modal) {
     });
 }
 
-function dueTodayHandler(projectList, container) {
-    const allTasks = projectList.getAllTasks();
-
-    const filteredTasks = allTasks.filter((elem) => {
-        return isToday(new Date(elem['dueDate']));
-    });
-    const cards = buildTaskCardList(filteredTasks);
-    renderTasks(cards, container)
+function dueTodayHandler(event, projectList, container) {
+    if (event.target.id === 'show-due-today') {
+        const allTasks = projectList.getAllTasks();
+    
+        const filteredTasks = allTasks.filter((elem) => {
+            return isToday(new Date(elem['dueDate']));
+        });
+        const cards = buildTaskCardList(filteredTasks);
+        renderTasks(cards, container)
+    }
 }
+
+function dueThisWeekHandler(event, projectList, container) {
+    if (event.target.id === 'show-due-this-week') {
+        const dueBefore = addWeeks(new Date(), 1);  // this works
+
+        const weekTasks = projectList.filterAllTasksByDueDate(dueBefore);
+        const cards = buildTaskCardList(weekTasks);
+        renderTasks(cards, container);
+    }
+}
+
+function dueThisMonthHandler(event, projectList, container) {
+    if (event.target.id === 'show-due-this-month') {
+        const dueBefore = addWeeks(new Date(), 4);  // this works
+
+        const monthTasks = projectList.filterAllTasksByDueDate(dueBefore);
+        const cards = buildTaskCardList(monthTasks);
+        renderTasks(cards, container);
+    }
+}
+
+function overDueHandler(event, projectList, container) {    
+    projectList.filterAllTasksByDueDate(new Date('2024-10-10'));
+
+}
+
 
 function initListeners(projList) {
     const projContainer = document.getElementById('projects-inner');
@@ -183,8 +212,8 @@ function initListeners(projList) {
     const editTaskModal = document.getElementById('edit-task-modal');
     const editTaskForm = document.getElementById('edit-task-form');
 
-    const allTasksBtn = document.getElementById('show-all-tasks');
-    const dueTodayBtn = document.getElementById('show-due-today');
+    // const dueTodayBtn = document.getElementById('show-due-today');
+    const filterMenu = document.getElementById('filter-tasks');
 
     projContainer.addEventListener('click', (ev) => {
         deleteProjectHandler(ev, projList);
@@ -217,13 +246,12 @@ function initListeners(projList) {
         newProjectHandler(projList, projContainer);
     });
 
-    allTasksBtn.addEventListener('click', (ev) => {
+    filterMenu.addEventListener('click', (ev) => {
         displayAllTasksHandler(ev, projList, taskContainer);
-    });
-
-    dueTodayBtn.addEventListener('click', (ev) => {
-        dueTodayHandler(projList, taskContainer);
-
+        dueTodayHandler(ev, projList, taskContainer);
+        dueThisWeekHandler(ev, projList, taskContainer);
+        dueThisMonthHandler(ev, projList, taskContainer);
+        
     });
 }
 
