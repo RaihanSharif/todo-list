@@ -34,10 +34,49 @@ function showEditTaskFormModal(ev, projList, form, modal) {
     }
 }
 
+
+function updateTask(task, data) {
+    task.title = data.title;
+    task.description = data.description;
+    task.dueDate = data.dueDate;
+    task.priority = data.priority;
+    task.project = data.project;
+}
+
 function editTaskSubmitHandler(ev, projectList, form, container) {
     //find the appropriate task and project and update it.
     const data = Object.fromEntries(new FormData(form));
-    const project = projectList.getProject(data.project);
+
+    // defaults are the old project title, and task title before they are edited
+    const projectDefault = form.elements['project'].defaultValue;
+    const taskDefault = form.elements['title'].defaultValue;
+    
+    const oldProject = projectList.getProject(projectDefault);
+    const newProject = projectList.getProject(data.project);
+
+    const task = oldProject.getTask(taskDefault);
+    
+    // get the task to be updated and change relevant values, except project.
+    if (projectDefault != data.project) {
+        const exists = newProject.getTask(data.title);
+        if (exists) {
+            console.log('task already exists in other project');
+            return false;
+        }
+        updateTask(task, data);
+        oldProject.moveTask(task.title, newProject);
+        const cards = buildTaskCardList(newProject.taskList);
+        renderTasks(cards, container);
+    } else {
+        updateTask(task, data);
+        const cards = buildTaskCardList(oldProject.taskList);
+        renderTasks(cards, container);
+    }
+
+
+
+    // if project is not the defaultValue
+            // call moveTask()
 
 }
 
@@ -138,6 +177,10 @@ function initListeners(projList) {
         deleteTaskHandler(ev, projList, taskContainer);
         showEditTaskFormModal(ev, projList, editTaskForm, editTaskModal);
     });
+
+    editTaskForm.addEventListener('submit', (ev) => {
+        editTaskSubmitHandler(ev, projList, editTaskForm, taskContainer);
+    })
 
 
 }

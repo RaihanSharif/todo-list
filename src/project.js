@@ -16,6 +16,7 @@ class Project {
 
     addTask(task) {
         this.taskList.push(task); //TODO: check for duplicates
+        return true; // successful returns true, else returns false
     }
 
     removeTask(task) {
@@ -28,6 +29,25 @@ class Project {
 
     getTask(titleIn) {
         return this.taskList.find(({title}) => title === titleIn);
+    }
+
+    moveTask(taskTitle, otherProject) {
+        const task = this.getTask(taskTitle);
+
+        if(!task) {
+            console.log('could not find task in this project');
+            return false;
+        }
+
+        const moved = otherProject.addTask(task);
+        if (moved) {
+            console.log(`moved task successfully`);
+            this.removeTask(task);
+            return true;
+        } else {
+            console.log(`task with same title already exists in other project`);
+            return false;
+        }
     }
 };
 

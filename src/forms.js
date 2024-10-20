@@ -21,6 +21,7 @@ function buildProjctSelectInput(projList, form) {
 function populateEditTaskForm(task, editForm) {
     const title = editForm.elements['title'];  //TODO: these two lines as one line
     title.value = task.title;
+    title.defaultValue = task.title;
 
     const description = editForm.elements['description'];
     description.value = task.description;
@@ -29,7 +30,6 @@ function populateEditTaskForm(task, editForm) {
     date.value = task.dueDate;
 
     const priority = editForm.elements['priority'];
-
     // correctly selects the prexisting priority as the default value
     for (let i = 0; i < priority.options.length; i++) {
         let opt = priority.options[i].textContent;
@@ -39,6 +39,8 @@ function populateEditTaskForm(task, editForm) {
         }
     }
     const project = editForm.elements['project'];
+    project.defaultValue = task.project;  // this is project of the task before it is changed by the user
+
     for (let i = 0; i < project.options.length; i++) {
         let opt = project.options[i].textContent;
         if (opt === task.project) {
