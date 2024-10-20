@@ -1,14 +1,12 @@
+import { endOfDayWithOptions } from "date-fns/fp";
 
 
-function initForms(projList) {
-    const newTaskForm = document.getElementById('new-task-form');
-    const editTaskForm = document.getElementById('edit-task-form');
-    buildProjctSelectInput(projList, newTaskForm);
-    buildProjctSelectInput(projList, editTaskForm);
-}
 
 function buildProjctSelectInput(projList, form) {
     const projSelect = form.querySelector('#project');
+    while(projSelect.firstChild) {
+        projSelect.remove(projSelect.firstChild);
+    }
     projList.projects.forEach(proj => {
         const opt = document.createElement('option');
         opt.value = proj['title'];
@@ -47,6 +45,14 @@ function populateEditTaskForm(task, editForm) {
             project.selectedIndex = i;
         }
     }
+}
+
+function initForms(projList) {
+    const newTaskForm = document.getElementById('new-task-form');
+    const editTaskForm = document.getElementById('edit-task-form');
+    buildProjctSelectInput(projList, newTaskForm);
+    buildProjctSelectInput(projList, editTaskForm);
+    console.log(editTaskForm);
 }
 // TODO: populate the second form and other stuff
 export { initForms, populateEditTaskForm };

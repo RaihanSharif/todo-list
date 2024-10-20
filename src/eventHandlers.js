@@ -3,9 +3,11 @@ import { renderTasks } from "./render.js"
 import Task from "./task.js";
 import { populateEditTaskForm } from "./forms.js"
 import Project from "./project.js";
+import { initForms } from "./forms"
 
-function showNewTaskFormModal() {
+function showNewTaskFormModal(projectList) {
     const taskModal = document.getElementById('new-task-modal');
+    initForms(projectList);
     taskModal.showModal();
 }
 
@@ -30,6 +32,7 @@ function showEditTaskFormModal(ev, projList, form, modal) {
         }
         const proj = projList.getProject(parent.dataset.project);
         const task = proj.getTask(parent.dataset.title);
+        initForms(projList);
         populateEditTaskForm(task, form);
         modal.showModal();
     }
@@ -85,7 +88,7 @@ function deleteTaskHandler(event, projectList, container) {
 
 }
 
-function newProjectHandler(event, projectList, container) {
+function newProjectHandler(projectList, container) {
     const title = prompt("project title: ");
     while (title === '') {
         title = prompt('please enter a title to continue, or press cancel');
@@ -98,7 +101,7 @@ function newProjectHandler(event, projectList, container) {
     if (added) {
         const projCard = buildProjectCard(newProj);
         container.appendChild(projCard);
-        console.log(projectList);
+        initForms(projectList);
     } else {
         alert("project already exists");
     } 
@@ -120,12 +123,18 @@ function deleteProjectHandler(event, projectList) {
     const target = event.target;
     if (target.classList.contains('delete-project')) {
         const temp = projectList.getProject(target.dataset.title);
-
-        // TODO: remove task cards of this project only
+        if (!confirm('if you delete the project, all tasks in this project will be deleted')){
+            return false;
+        }
+        projectList.removeProject(temp);
+        
+        // empty the task container
         const taskContainer = document.getElementById('tasks-container');
         while(taskContainer.firstChild) {
             taskContainer.removeChild(taskContainer.firstChild);
         }
+
+        // remove project from project container
         const remEl = target.parentNode;
         remEl.parentNode.removeChild(remEl);
     }
@@ -168,7 +177,7 @@ function initListeners(projList) {
     });
 
     newTaskBtn.addEventListener('click', () => {
-        showNewTaskFormModal();
+        showNewTaskFormModal(projList);
     });
 
     newTaskForm.addEventListener('submit', () => {
@@ -188,7 +197,7 @@ function initListeners(projList) {
     });
 
     newProjBtn.addEventListener('click', (ev) => {
-        newProjectHandler(ev, projList, projContainer);
+        newProjectHandler(projList, projContainer);
     });
 }
 
