@@ -14,6 +14,8 @@ class ProjectList {
 
     // returns false if project already in list
     addProject(project) {
+        console.log('inside add project');
+
         if (!(project instanceof Project)) {
             console.log("not a project");
             return false;
@@ -24,7 +26,7 @@ class ProjectList {
             return false;
         }
 
-        if (this.getProject('title', project.title)) {
+        if (this.getProject(project.title)) {
             console.log('project already exists');
             return false;
         }
