@@ -22,15 +22,20 @@ function buildTaskCard(task) {
     // if checkbox is checked, the task is marked as completed
     // the card gets a isChecked = true, data
     // tested - works 
-    taskCheckbox.addEventListener('change', () => {
-        if (taskCheckbox.checked) {
-            task.isComplete = true;
-            card.dataset.isChecked = true;
-        } else {
-            task.isComplete = false;
-            card.dataset.isChecked = false;
-        }
-    });
+    // taskCheckbox.addEventListener('change', () => {
+    //     if (taskCheckbox.checked) {
+    //         task.isComplete = true;
+    //         card.dataset.isChecked = true;
+    //     } else {
+    //         task.isComplete = false;
+    //         card.dataset.isChecked = false;
+    //     }
+    // });
+
+    if (task.isComplete) {
+        taskCheckbox.checked = true;
+        card.classList.toggle('task-completed');
+    }
 
     const taskDesc = document.createElement('p');
     taskDesc.textContent = task.description;
@@ -87,7 +92,11 @@ function buildTaskCardList(taskArray) {
     const cardsArray = [];
     taskArray.forEach(taskElem => {
         const temp = buildTaskCard(taskElem);
-        cardsArray.push(temp);
+        if (taskElem.isComplete) {
+            cardsArray.push(temp);
+        } else {
+            cardsArray.unshift(temp);
+        }
     });
     return cardsArray;
 }
@@ -104,7 +113,7 @@ function buildProjectCard(project) {
 
     card.appendChild(projName);
     
-    
+
     if (project.title != 'Other') {
         const iconContainer = document.createElement('div');
         iconContainer.classList.add('project-icon-container');    

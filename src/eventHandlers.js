@@ -200,6 +200,34 @@ function overDueHandler(event, projectList, container) {
     }
 }
 
+function checkBoxHandler(event, projectList, container) {
+    const target = event.target;
+    if (target.classList.contains('task-checkbox')) {
+        let parent = target.parentNode;
+        while (!parent.classList.contains('task-card')) {
+            parent = parent.parentNode;
+        }
+
+        const project = projectList.getProject(parent.dataset.project);
+        const task = project.getTask(parent.dataset.title);
+
+        task.isComplete = !task.isComplete;
+        parent.classList.toggle('task-completed');
+        console.log(parent.classList.ischecked === 'false');
+        // BUG: shows up on console log but not on element view...
+        if (parent.classList.ischecked === 'true') {
+            parent.classList.ischecked = 'false';
+        } else {
+            parent.classList.ischecked = 'true';
+        }
+
+        // gets the last child of the container and moves the completed task to the bottom
+        const lastchild = container.lastChild;
+        lastchild.after(parent);
+    }
+
+}
+
 
 function initListeners(projList) {
     const projContainer = document.getElementById('projects-inner');
@@ -236,6 +264,7 @@ function initListeners(projList) {
     taskContainer.addEventListener('click', (ev) => {
         deleteTaskHandler(ev, projList, taskContainer);
         showEditTaskFormModal(ev, projList, editTaskForm, editTaskModal);
+        checkBoxHandler(ev, projList, taskContainer);
     });
 
     editTaskForm.addEventListener('submit', (ev) => {

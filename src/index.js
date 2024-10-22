@@ -25,7 +25,7 @@ mainProjects.addProject(other);
 
 
 const homework = new Project("Homework", "testing bro");
-const task1 = new Task('odin project', 'complete faster', '2024-07-10', 'High', 'Homework');
+const task1 = new Task('odin project', 'complete faster', '2024-07-10', 'High', 'Homework', true);
 homework.addTask(task1);
 homework.addTask(new Task("C++", "learn about asynchonous execution", "2024-12-12", 'Medium', 'Homework'));
 mainProjects.addProject(homework);

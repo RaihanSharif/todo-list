@@ -158,6 +158,12 @@ ul {
   cursor: pointer;
 }
 
+.task-completed {
+  background-color: lightgreen;
+  /* text-decoration: line-through; */
+  color: darkgray;
+}
+
 /* #new-project-btn:hover {
   backdrop-filter: brightness(80%);
 } */
