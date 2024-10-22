@@ -3,7 +3,6 @@ import Task from "./task.js";
 class Project {
     taskList= [];
 
-    // TODO: Add a static method to move an item from one project to another
     // TODO: static field to track number of tasks in project
     constructor(title, description) {
         this.title = title;
@@ -15,8 +14,18 @@ class Project {
     }
 
     addTask(task) {
-        this.taskList.push(task); //TODO: check for duplicates
-        return true; // successful returns true, else returns false
+        if (this.taskList.includes(task)) {
+            console.log('task already exists in this project');
+            return false;
+        }
+
+        if (this.getTask(task.title)) {
+            console.log(`task with this title exists`);
+            return false;
+        }
+
+        this.taskList.push(task); 
+        return true; 
     }
 
     removeTask(task) {

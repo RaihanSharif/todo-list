@@ -19,7 +19,7 @@ function newTaskSubmitHandler(form, projectList, container) {
     const proj = projectList.getProject(data.project);
     proj.addTask(newTask);
     const cards = buildTaskCardList(proj.taskList);
-    renderTasks(cards, container); //TODO: make a function to delete a single card from the current task-container
+    renderTasks(cards, container); 
 }
 
 // TODO: use the while loop to get the task card. Store all the data attributes to the card,
@@ -33,6 +33,7 @@ function showEditTaskFormModal(ev, projList, form, modal) {
         const proj = projList.getProject(parent.dataset.project);
         const task = proj.getTask(parent.dataset.title);
         initForms(projList);
+        console.log(`opening edit form`);
         populateEditTaskForm(task, form);
         modal.showModal();
     }
@@ -47,7 +48,6 @@ function updateTask(task, data) {
 }
 
 function editTaskSubmitHandler(projectList, form, container) {
-    //find the appropriate task and project and update it.
     const data = Object.fromEntries(new FormData(form));
 
     // defaults are the old project title, and task title before they are edited
@@ -59,16 +59,21 @@ function editTaskSubmitHandler(projectList, form, container) {
 
     const task = oldProject.getTask(taskDefault);
     
+    // if changing project, create new task with form data, and store in that new project.
+    // then delete current task from its project.
     if (projectDefault != data.project) {
-        const exists = newProject.getTask(data.title);
-        if (exists) {
-            console.log('task already exists in other project');
-            return false;
+        const newTask = new Task();
+        updateTask(newTask, data);
+
+        // if new task added, render new project.
+        if (newProject.addTask(newTask)) {
+            oldProject.removeTask(task);
+            const cards = buildTaskCardList(newProject.taskList);
+            renderTasks(cards, container);
+            
+        } else {
+            alert(`task with that title already exists in the ${newProject.title} project`);
         }
-        updateTask(task, data);
-        oldProject.moveTask(task.title, newProject);
-        const cards = buildTaskCardList(newProject.taskList);
-        renderTasks(cards, container);
     } else {
         updateTask(task, data);
         const cards = buildTaskCardList(oldProject.taskList);
@@ -197,10 +202,7 @@ function dueThisMonthHandler(event, projectList, container) {
 function overDueHandler(event, projectList, container) {    
     if (event.target.id === 'show-overdue') {
         const dueBefore = new Date();
-
         const overDueTasks = projectList.filterAllTasksByDueDate(dueBefore);
-        console.log(`overdue tasks`);
-        console.log(overDueTasks);
 
         const cards = buildTaskCardList(overDueTasks);
         renderTasks(cards, container);

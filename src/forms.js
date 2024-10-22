@@ -1,6 +1,5 @@
-
-
-
+// TODO: don't need two forms, just a task form, which is populated when editing, just
+// the submit handling needs to change.
 
 function buildProjctSelectInput(projList, form) {
     const projSelect = form.querySelector('#project');
@@ -17,7 +16,7 @@ function buildProjctSelectInput(projList, form) {
 }
 
 function populateEditTaskForm(task, editForm) {
-    const title = editForm.elements['title'];  //TODO: these two lines as one line
+    const title = editForm.elements['title'];
     title.value = task.title;
     title.defaultValue = task.title;
 
@@ -55,5 +54,5 @@ function initForms(projList) {
     buildProjctSelectInput(projList, newTaskForm);
     buildProjctSelectInput(projList, editTaskForm);
 }
-// TODO: populate the second form and other stuff
+
 export { initForms, populateEditTaskForm };

@@ -8,7 +8,6 @@ import { buildTaskCardList, buildProjectCardList } from "./DOMBuilders.js";
 import { initListeners } from "./eventHandlers.js";
 import { initForms } from "./forms.js"
 
-// TODO: make sure controller/model does not depend on the view.
 
 function init(projectList) {
     // load data
@@ -26,7 +25,7 @@ mainProjects.addProject(other);
 
 
 const homework = new Project("Homework", "testing bro");
-const task1 = new Task('odin project', 'complete faster', '2024-7-10', 'High', 'Homework');
+const task1 = new Task('odin project', 'complete faster', '2024-07-10', 'High', 'Homework');
 homework.addTask(task1);
 homework.addTask(new Task("C++", "learn about asynchonous execution", "2024-12-12", 'Medium', 'Homework'));
 mainProjects.addProject(homework);

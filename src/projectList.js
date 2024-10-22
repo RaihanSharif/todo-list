@@ -6,7 +6,7 @@ import { compareAsc, isAfter, isBefore, isWithinInterval } from "date-fns"
 class ProjectList {
     projects = [];
 
-    // TODO: static field to track number of projects
+    // TODO: static field to track number of projects and tasks
     // returns the matching object
     getProject(titleValue) {
         return this.projects.find(({ title }) => title === titleValue);
