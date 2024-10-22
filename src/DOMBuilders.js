@@ -1,6 +1,6 @@
 //TODO: make all this a single static class
 
-// TODO: turk this in a card class 
+// TODO: turn this into a card class 
 // then taskCard and project Card can inherit from card
 function buildTaskCard(task) {
     const card = document.createElement("div");
@@ -36,8 +36,9 @@ function buildTaskCard(task) {
     taskDesc.textContent = task.description;
     taskDesc.classList.add("task-desc");
 
-    const taskDate = document.createElement('span');  //TODO: change to date/time tag later
+    const taskDate = document.createElement('time');  //TODO: change to date/time tag later
     taskDate.textContent = task.dueDate;
+    taskDate.setAttribute('datetime', task.dueDate);
     taskDate.classList.add('task-due-date');
 
     const taskPriority = document.createElement('div');
