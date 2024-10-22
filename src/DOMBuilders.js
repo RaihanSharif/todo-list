@@ -19,19 +19,6 @@ function buildTaskCard(task) {
     taskCheckbox.setAttribute('data-title', task.title);
     taskCheckbox.name = 'task-checkbox';
 
-    // if checkbox is checked, the task is marked as completed
-    // the card gets a isChecked = true, data
-    // tested - works 
-    // taskCheckbox.addEventListener('change', () => {
-    //     if (taskCheckbox.checked) {
-    //         task.isComplete = true;
-    //         card.dataset.isChecked = true;
-    //     } else {
-    //         task.isComplete = false;
-    //         card.dataset.isChecked = false;
-    //     }
-    // });
-
     if (task.isComplete) {
         taskCheckbox.checked = true;
         card.classList.toggle('task-completed');

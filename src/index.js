@@ -43,4 +43,3 @@ renderTasks(taskCards, tasksContainer);
 
 init(mainProjects);
 
-export {mainProjects, tasksContainer, taskCards};

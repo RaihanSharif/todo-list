@@ -19,7 +19,6 @@ class Task {
         this.isComplete = false;
     }
 
-    // TODO: passes in a data object. not all values added yet
     updateTask(data) {
         this.title = data.title;
         this.description = data.description;

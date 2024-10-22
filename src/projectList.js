@@ -19,20 +19,16 @@ class ProjectList {
 
     // returns false if project already in list
     addProject(project) {
-        console.log('inside add project');
 
         if (!(project instanceof Project)) {
-            console.log("not a project");
             return false;
         }
 
         if(this.projects.includes(project)) {
-            console.log("project already exists");
             return false;
         }
 
         if (this.getProject(project.title)) {
-            console.log('project already exists');
             return false;
         }
         
@@ -42,13 +38,10 @@ class ProjectList {
 
     removeProject(project) {
         if (this.projects.includes(project)) {
-            console.log(`project exists, title: ${project.title}`);
             const index = this.projects.indexOf(project);
             this.projects.splice(index, 1);
-            console.log(`projects left after removal: ${this.projects}`);
             return true;
         } else {
-            console.log("item does not exist");
             return false;
         }
     }
@@ -77,7 +70,6 @@ class ProjectList {
                 end: dueBeforeDate
             });
         });
-        console.log(`due after date ${dueAfterDate}`);
         return filteredTasks;
     }
 

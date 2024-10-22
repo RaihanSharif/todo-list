@@ -50,6 +50,8 @@ function populateEditTaskForm(task, editForm) {
 function initForms(projList) {
     const newTaskForm = document.getElementById('new-task-form');
     const editTaskForm = document.getElementById('edit-task-form');
+    newTaskForm.reset();
+    editTaskForm.reset();
     buildProjctSelectInput(projList, newTaskForm);
     buildProjctSelectInput(projList, editTaskForm);
 }

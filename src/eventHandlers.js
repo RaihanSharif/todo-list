@@ -4,7 +4,7 @@ import Task from "./task.js";
 import { populateEditTaskForm } from "./forms.js"
 import Project from "./project.js";
 import { initForms } from "./forms"
-import { compareAsc, isAfter, subDays, isToday, addWeeks } from "date-fns"
+import { subDays, isToday, addWeeks } from "date-fns"
 
 function showNewTaskFormModal(projectList) {
     const taskModal = document.getElementById('new-task-modal');

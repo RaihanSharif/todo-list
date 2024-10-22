@@ -32,7 +32,7 @@ class Project {
     }
 
     removeTask(task) {
-        // the include has to be the exact same object, not another object with same attributes
+        // the actual object, not just another object with the same title
         if (this.taskList.includes(task)) {
             const index = this.taskList.indexOf(task);
             this.taskList.splice(index, 1);
