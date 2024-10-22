@@ -3,7 +3,6 @@ import Task from "./task.js";
 class Project {
     taskList= [];
 
-    // TODO: static field to track number of tasks in project
     constructor(title, description) {
         this.title = title;
         this.description = description;
@@ -11,6 +10,10 @@ class Project {
 
     get taskList() {
         return this.taskList;
+    }
+
+    get taskCount() {
+        return this.taskList.length;
     }
 
     addTask(task) {
@@ -35,6 +38,8 @@ class Project {
             this.taskList.splice(index, 1);
         }
     }
+
+
 
     getTask(titleIn) {
         return this.taskList.find(({title}) => title === titleIn);

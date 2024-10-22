@@ -6,9 +6,9 @@ class Task {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
-        this.priority = priority; //TODO: should be a numeric range from which users can pick
+        this.priority = priority; 
         this.project = project;
-        this.isComplete = isComplete;
+        this.isComplete = isComplete;  // TODO: put completed tasks in an 'archive folder where users can't delete permanently
     }
 
     completeTask() {

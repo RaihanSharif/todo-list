@@ -12,6 +12,11 @@ class ProjectList {
         return this.projects.find(({ title }) => title === titleValue);
     }
 
+    get taskCount() {
+        return this.projects.map((proj) => proj.taskCount).reduce(
+            (a, b) => a + b, 0);
+    }
+    
     // returns false if project already in list
     addProject(project) {
         console.log('inside add project');
