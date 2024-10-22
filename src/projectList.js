@@ -65,11 +65,6 @@ class ProjectList {
      * @returns {Task[]} - An array of Task objects matching the criteria
      */
     filterAllTasksByDueDate(dueBeforeDate, dueAfterDate = new Date(0)) {
-        // if (isAfter(dueAfterDate, dueBeforeDate)) {
-        //     console.log(`The due after date cannot be farther in future than the due before date`);
-        //     return false;
-        // }
-
         const tasks = this.getAllTasks();
         const filteredTasks = tasks.filter((elem) => {
             return isWithinInterval(new Date(elem['dueDate']), {

@@ -33,18 +33,9 @@ function showEditTaskFormModal(ev, projList, form, modal) {
         const proj = projList.getProject(parent.dataset.project);
         const task = proj.getTask(parent.dataset.title);
         initForms(projList);
-        console.log(`opening edit form`);
         populateEditTaskForm(task, form);
         modal.showModal();
     }
-}
-
-function updateTask(task, data) {
-    task.title = data.title;
-    task.description = data.description;
-    task.dueDate = data.dueDate;
-    task.priority = data.priority;
-    task.project = data.project;
 }
 
 function editTaskSubmitHandler(projectList, form, container) {
@@ -63,7 +54,7 @@ function editTaskSubmitHandler(projectList, form, container) {
     // then delete current task from its project.
     if (projectDefault != data.project) {
         const newTask = new Task();
-        updateTask(newTask, data);
+        newTask.updateTask(data);
 
         // if new task added, render new project.
         if (newProject.addTask(newTask)) {
@@ -75,7 +66,7 @@ function editTaskSubmitHandler(projectList, form, container) {
             alert(`task with that title already exists in the ${newProject.title} project`);
         }
     } else {
-        updateTask(task, data);
+        task.updateTask(data);
         const cards = buildTaskCardList(oldProject.taskList);
         renderTasks(cards, container);
     }

@@ -25,6 +25,7 @@ class Task {
         this.description = data.description;
         this.dueDate = data.dueDate;
         this.priority = data.priority;
+        this.project = data.project;
     }
 };
 
