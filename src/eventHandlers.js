@@ -4,7 +4,7 @@ import Task from "./task.js";
 import { populateEditTaskForm } from "./forms.js"
 import Project from "./project.js";
 import { initForms } from "./forms"
-import { compareAsc, isAfter, isBefore, isToday, addWeeks } from "date-fns"
+import { compareAsc, isAfter, subDays, isToday, addWeeks } from "date-fns"
 
 function showNewTaskFormModal(projectList) {
     const taskModal = document.getElementById('new-task-modal');
@@ -174,7 +174,7 @@ function dueThisWeekHandler(event, projectList, container) {
     if (event.target.id === 'show-due-this-week') {
         const dueBefore = addWeeks(new Date(), 1);  // this works
 
-        const weekTasks = projectList.filterAllTasksByDueDate(dueBefore, new Date());
+        const weekTasks = projectList.filterAllTasksByDueDate(dueBefore);
         const cards = buildTaskCardList(weekTasks);
         renderTasks(cards, container);
     }
@@ -192,7 +192,7 @@ function dueThisMonthHandler(event, projectList, container) {
 
 function overDueHandler(event, projectList, container) {    
     if (event.target.id === 'show-overdue') {
-        const dueBefore = new Date();
+        const dueBefore = subDays(new Date(),1);
         const overDueTasks = projectList.filterAllTasksByDueDate(dueBefore);
 
         const cards = buildTaskCardList(overDueTasks);

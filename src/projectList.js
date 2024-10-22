@@ -16,7 +16,7 @@ class ProjectList {
         return this.projects.map((proj) => proj.taskCount).reduce(
             (a, b) => a + b, 0);
     }
-    
+
     // returns false if project already in list
     addProject(project) {
         console.log('inside add project');
@@ -77,7 +77,7 @@ class ProjectList {
                 end: dueBeforeDate
             });
         });
-        console.log(`due before: ${dueBeforeDate}, due after ${dueAfterDate}`);
+        console.log(`due after date ${dueAfterDate}`);
         return filteredTasks;
     }
 
