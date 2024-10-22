@@ -36,7 +36,7 @@ function buildTaskCard(task) {
     taskDesc.textContent = task.description;
     taskDesc.classList.add("task-desc");
 
-    const taskDate = document.createElement('time');  //TODO: change to date/time tag later
+    const taskDate = document.createElement('time'); 
     taskDate.textContent = task.dueDate;
     taskDate.setAttribute('datetime', task.dueDate);
     taskDate.classList.add('task-due-date');
@@ -102,33 +102,28 @@ function buildProjectCard(project) {
     projName.textContent = project.title;
     projName.setAttribute('data-title', project.title);
 
-    const iconContainer = document.createElement('div');
-    iconContainer.classList.add('project-icon-container');
-
-    const projEdit = document.createElement('span');
-    projEdit.classList.add('edit-project', 'fa-solid', 'fa-edit');
-    projEdit.setAttribute('data-title', project.title);
-    
-    const projDel = document.createElement('span');
-    projDel.classList.add('delete-project', 'fa-solid', 'fa-trash');
-    projDel.setAttribute('data-title', project.title);
-    // iconContainer.appendChild(projEdit);
-    // iconContainer.appendChild(projDel);
-
     card.appendChild(projName);
-    card.appendChild(projEdit);
-    card.appendChild(projDel);
+    
+    
+    if (project.title != 'Other') {
+        const iconContainer = document.createElement('div');
+        iconContainer.classList.add('project-icon-container');    
+        const projEdit = document.createElement('span');
+        projEdit.classList.add('edit-project', 'fa-solid', 'fa-edit');
+        projEdit.setAttribute('data-title', project.title);
+        
+        const projDel = document.createElement('span');
+        projDel.classList.add('delete-project', 'fa-solid', 'fa-trash');
+        projDel.setAttribute('data-title', project.title);
+        card.appendChild(projEdit);
+        card.appendChild(projDel);
+    }
+
 
 
     return card;
-    // TODO: event listeners added to container, not here
-    // projectName.addEventListener('click', () => {  
-    //     // create DOMTaskList and then supply that to the renderTasks?
-    //     renderTasks(taskCards, tasksContainer);  
-    // });
-    // li.appendChild(projectName);
-    
 }
+
 
 function buildProjectCardList(projectArray) {
     const cardsArr = [];
