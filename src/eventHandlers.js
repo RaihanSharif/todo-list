@@ -195,8 +195,16 @@ function dueThisMonthHandler(event, projectList, container) {
 }
 
 function overDueHandler(event, projectList, container) {    
-    projectList.filterAllTasksByDueDate(new Date('2024-10-10'));
+    if (event.target.id === 'show-overdue') {
+        const dueBefore = new Date();
 
+        const overDueTasks = projectList.filterAllTasksByDueDate(dueBefore);
+        console.log(`overdue tasks`);
+        console.log(overDueTasks);
+
+        const cards = buildTaskCardList(overDueTasks);
+        renderTasks(cards, container);
+    }
 }
 
 
@@ -212,7 +220,6 @@ function initListeners(projList) {
     const editTaskModal = document.getElementById('edit-task-modal');
     const editTaskForm = document.getElementById('edit-task-form');
 
-    // const dueTodayBtn = document.getElementById('show-due-today');
     const filterMenu = document.getElementById('filter-tasks');
 
     projContainer.addEventListener('click', (ev) => {
@@ -251,6 +258,7 @@ function initListeners(projList) {
         dueTodayHandler(ev, projList, taskContainer);
         dueThisWeekHandler(ev, projList, taskContainer);
         dueThisMonthHandler(ev, projList, taskContainer);
+        overDueHandler(ev, projList, taskContainer);
         
     });
 }

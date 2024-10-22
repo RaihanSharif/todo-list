@@ -107,6 +107,19 @@ ul {
   padding: 1rem;
 }
 
+.menu {
+  margin-bottom: 1rem;
+}
+.menu > * {
+  border-bottom: 1px solid black;
+}
+.menu > *:hover, 
+#new-task-btn:hover,
+#new-project-btn:hover {
+  backdrop-filter: brightness(80%);
+  
+}
+
 .project-card {
   display: grid;
   grid-template-columns: 1fr auto auto;
@@ -129,7 +142,12 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* backdrop-filter: brightness(80%); */
+  padding: 0.5rem 0;
+  cursor: pointer;
+}
+
+#new-task-btn > * {
+  padding: 0.5rem;
 }
 
 #new-project-btn {
@@ -140,9 +158,9 @@ ul {
   cursor: pointer;
 }
 
-#new-project-btn:hover {
+/* #new-project-btn:hover {
   backdrop-filter: brightness(80%);
-}
+} */
 
 dialog[open] {
   display: flex;
