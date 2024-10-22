@@ -1,4 +1,4 @@
-import { endOfDayWithOptions } from "date-fns/fp";
+
 
 
 
@@ -29,14 +29,15 @@ function populateEditTaskForm(task, editForm) {
     console.log(task.dueDate);
 
     const priority = editForm.elements['priority'];
-    // correctly selects the prexisting priority as the default value
+    // can't just set directly with priority = task.priority;
     for (let i = 0; i < priority.options.length; i++) {
-        let opt = priority.options[i].textContent;
+        let opt = priority.options[i].value;
         let prev = task.priority;
         if(opt === prev) {
             priority.selectedIndex = i;
         }
     }
+
     const project = editForm.elements['project'];
     project.defaultValue = task.project;  // this is project of the task before it is changed by the user
 

@@ -20,15 +20,15 @@ function init(projectList) {
 
 const mainProjects = new ProjectList();
 const other = new Project("Other", "Tasks that are not assigned to a project");
-const otherTask = new Task('other task', 'test test', '2024-11-22', 'low', 'Other');
+const otherTask = new Task('other task', 'test test', '2024-11-22', 'Low', 'Other');
 other.addTask(otherTask);
 mainProjects.addProject(other);
 
 
 const homework = new Project("Homework", "testing bro");
-const task1 = new Task('odin project', 'complete faster', '2024-7-10', 'high', 'Homework');
+const task1 = new Task('odin project', 'complete faster', '2024-7-10', 'High', 'Homework');
 homework.addTask(task1);
-homework.addTask(new Task("C++", "learn about asynchonous execution", "2024-12-12", 'high', 'Homework'));
+homework.addTask(new Task("C++", "learn about asynchonous execution", "2024-12-12", 'Medium', 'Homework'));
 mainProjects.addProject(homework);
 
 
