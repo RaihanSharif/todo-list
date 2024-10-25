@@ -5,6 +5,7 @@ import { populateEditTaskForm } from "./forms.js"
 import Project from "./project.js";
 import { initForms } from "./forms"
 import { subDays, isToday, addWeeks, compareAsc } from "date-fns"
+import { saveToLocal } from "./storeLocalData.js";
 
 function showNewTaskFormModal(projectList) {
     const taskModal = document.getElementById('new-task-modal');
@@ -20,6 +21,7 @@ function newTaskSubmitHandler(form, projectList, container) {
     proj.addTask(newTask);
     const cards = buildTaskCardList(proj.taskList);
     renderTasks(cards, container); 
+    saveToLocal(projectList);
 }
 
 // TODO: use the while loop to get the task card. Store all the data attributes to the card,
@@ -95,6 +97,7 @@ function newProjectHandler(projectList, container) {
     const newProj = new Project(title, desc);
     const added = projectList.addProject(newProj);
     if (added) {
+        saveToLocal(projectList);
         const projCard = buildProjectCard(newProj);
         container.appendChild(projCard);
         initForms(projectList);

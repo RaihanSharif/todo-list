@@ -1,5 +1,3 @@
-import { format } from "date-fns";
-
 class Task {
     // isComplete is set to false by default
     constructor(title, description, dueDate, priority, project, isComplete=false) {
