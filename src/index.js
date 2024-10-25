@@ -34,7 +34,8 @@ function demoData(projectsList)  {
 
 function init(projectList) {
   
-  
+  // TODO: move to using the one from storeLocalData.js
+  // TODO: make the deletion of projects and tasks and task edit save to local data
   if (!localStorage.getItem('storedData')) {
     console.log(`nothing in localStorage`);
     const otherProj = new Project("Other", "Tasks that are not assigned to a project");

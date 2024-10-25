@@ -32,7 +32,10 @@ function showEditTaskFormModal(ev, projList, form, modal) {
         while (!parent.classList.contains('task-card')) {
             parent = parent.parentElement;
         }
+        console.log(parent);
         const proj = projList.getProject(parent.dataset.project);
+        console.log("showEditForm: project");
+        console.log(proj);
         const task = proj.getTask(parent.dataset.title);
         initForms(projList);
         populateEditTaskForm(task, form);
@@ -72,6 +75,7 @@ function editTaskSubmitHandler(projectList, form, container) {
         const cards = buildTaskCardList(oldProject.taskList);
         renderTasks(cards, container);
     }
+    saveToLocal(projectList);
 }
 
 function deleteTaskHandler(event, projectList, container) {

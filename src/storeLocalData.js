@@ -54,7 +54,7 @@ function JSONToProjectList(JSONFile) {
     const newProj = new Project(proj.title, proj.description);
     proj.taskList.forEach(task => {
       const newTask = new Task(task.title, task.description, 
-        task.dueDate, task.priority, task.projectList, task.isComplete);
+        task.dueDate, task.priority, task.project, task.isComplete);
         newProj.addTask(newTask);
 
     });
