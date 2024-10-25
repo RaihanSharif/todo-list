@@ -86,6 +86,7 @@ function deleteTaskHandler(event, projectList, container) {
         proj.removeTask(task);
         const cards = buildTaskCardList(proj.taskList);
         renderTasks(cards, container);
+        saveToLocal(projectList);
     }
 
 }
@@ -140,6 +141,7 @@ function deleteProjectHandler(event, projectList) {
         // remove project from project container
         const remEl = target.parentNode;
         remEl.parentNode.removeChild(remEl);
+        saveToLocal(projectList);
     }
 }
 
